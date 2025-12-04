@@ -11,16 +11,21 @@ Node.js/Express backend server for the Open Source Matchmaker platform.
 - **GitHub GraphQL API** - Contribution data
 - **JWT** - Token authentication
 - **Axios** - HTTP client
+- **Winston** - Logging
+- **Helmet** - Security headers
 
 ## 📦 Installation
 
+Navigate to the Backend directory and install dependencies:
+
 ```bash
+cd Backend
 npm install
 ```
 
 ## ⚙️ Configuration
 
-Create a `.env` file:
+Create a `.env` file in the `Backend` directory:
 
 ```env
 PORT=5000
@@ -59,30 +64,38 @@ Server runs on `http://localhost:5000`
 ## 📁 Project Structure
 
 ```
-src/
-├── config/           # Configuration files
-│   ├── database.js   # Supabase client
-│   └── github.js     # GitHub API config
-├── controllers/      # Route controllers
-│   ├── authController.js
-│   ├── profileController.js
-│   ├── recommendationsController.js
-│   ├── savedController.js
-│   └── searchController.js
-├── middleware/       # Express middleware
-│   ├── auth.js       # JWT authentication
-│   └── errorHandler.js
-├── routes/           # API routes
-│   ├── authRoutes.js
-│   ├── profileRoutes.js
-│   ├── recommendationsRoutes.js
-│   ├── savedRoutes.js
-│   └── searchRoutes.js
-├── services/         # Business logic
-│   ├── githubService.js      # GitHub API integration
-│   ├── analysisService.js    # Profile analysis
-│   └── matchService.js       # Repository matching
-└── app.js           # Express app setup
+Backend/
+├── src/
+│   ├── config/           # Configuration files
+│   │   ├── database.js   # Supabase client
+│   │   └── github.js     # GitHub API config
+│   ├── controllers/      # Route controllers
+│   │   ├── authController.js
+│   │   ├── profileController.js
+│   │   ├── recommendationsController.js
+│   │   ├── savedController.js
+│   │   └── searchController.js
+│   ├── middleware/       # Express middleware
+│   │   ├── auth.js       # JWT authentication
+│   │   └── errorHandler.js
+│   ├── routes/           # API routes
+│   │   ├── authRoutes.js
+│   │   ├── profileRoutes.js
+│   │   ├── recommendationsRoutes.js
+│   │   ├── savedRoutes.js
+│   │   └── searchRoutes.js
+│   ├── services/         # Business logic
+│   │   ├── githubService.js      # GitHub API integration
+│   │   ├── analysisService.js    # Profile analysis
+│   │   └── matchService.js       # Repository matching
+│   ├── app.js            # Express app setup
+│   └── server.js         # Server entry point
+├── supabase/
+│   └── migrations/       # Database migration files
+├── logs/                 # Application logs
+├── .env                  # Environment variables (gitignored)
+├── .env.example          # Environment variables template
+└── package.json          # Project dependencies
 ```
 
 ## 🗄️ Database
@@ -90,13 +103,15 @@ src/
 The application uses Supabase (PostgreSQL). Apply migrations in this order:
 
 1. **Base Tables**
-   ```sql
-   -- supabase/migrations/20251202173826_create_users_and_repos_tables.sql
+   ```bash
+   # Run: Backend/supabase/migrations/20251202173826_create_users_and_repos_tables.sql
+   # in your Supabase SQL editor
    ```
 
 2. **Tech Stack Column**
-   ```sql
-   -- supabase/migrations/20251205_add_user_techstack.sql
+   ```bash
+   # Run: Backend/supabase/migrations/20251205_add_user_techstack.sql
+   # in your Supabase SQL editor
    ```
 
 ## 📡 API Endpoints
@@ -169,13 +184,13 @@ All routes include comprehensive error handling:
 
 Uses `winston` for structured logging:
 - Console output in development
-- File logging in production
+- File logging in production (`Backend/logs/`)
 - Error tracking
 - Request logging
 
 ## 🚀 Deployment
 
-See main [README.md](../README.md) for deployment instructions.
+See the main [README.md](../README.md) and [DEPLOYMENT.md](../DEPLOYMENT.md) for deployment instructions.
 
 **Recommended Platforms:**
 - Render
@@ -213,3 +228,7 @@ npm test
 ## 📧 Support
 
 For issues, open a GitHub issue or contact the maintainer.
+
+---
+
+[← Back to Main README](../README.md) | [Frontend Documentation →](../frontend/README.md)

@@ -14,15 +14,18 @@ React-based frontend for the Open Source Matchmaker platform.
 - **Lucide React** - Icons
 - **Axios** - HTTP client
 
-## � Installation
+## 📦 Installation
+
+Navigate to the frontend directory and install dependencies:
 
 ```bash
+cd frontend
 npm install
 ```
 
 ## ⚙️ Configuration
 
-Create a `.env` file:
+Create a `.env` file in the `frontend` directory:
 
 ```env
 VITE_API_URL=http://localhost:5000
@@ -51,30 +54,44 @@ App runs on `http://localhost:5173`
 ## 📁 Project Structure
 
 ```
-src/
-├── components/       # Reusable components
-│   ├── Navbar.jsx
-│   ├── RepoCard.jsx
-│   ├── ThemeToggle.jsx
-│   └── ...
-├── hooks/           # Custom React hooks
-│   └── useApi.js    # API integration hooks
-├── pages/           # Page components
-│   ├── Landing.jsx
-│   ├── Login.jsx
-│   ├── Dashboard.jsx
-│   ├── Profile.jsx
-│   ├── Recommendations.jsx
-│   ├── Search.jsx
-│   ├── Saved.jsx
-│   └── History.jsx
-├── services/        # API services
-│   └── api.js       # API client & services
-├── store/           # Zustand stores
-│   ├── authStore.js
-│   └── themeStore.js
-├── App.jsx          # Main app component
-└── main.jsx         # Entry point
+frontend/
+├── src/
+│   ├── components/       # Reusable components
+│   │   ├── Navbar.jsx
+│   │   ├── RepoCard.jsx
+│   │   ├── ThemeToggle.jsx
+│   │   ├── ProtectedRoute.jsx
+│   │   └── ...
+│   ├── hooks/           # Custom React hooks
+│   │   └── useApi.js    # API integration hooks
+│   ├── pages/           # Page components
+│   │   ├── Landing.jsx
+│   │   ├── Login.jsx
+│   │   ├── Dashboard.jsx
+│   │   ├── Profile.jsx
+│   │   ├── Recommendations.jsx
+│   │   ├── Search.jsx
+│   │   ├── Saved.jsx
+│   │   └── History.jsx
+│   ├── services/        # API services
+│   │   └── api.js       # API client & services
+│   ├── store/           # Zustand stores
+│   │   ├── authStore.js
+│   │   └── themeStore.js
+│   ├── utils/           # Utility functions
+│   ├── App.jsx          # Main app component
+│   ├── App.css          # App styles
+│   ├── main.jsx         # Entry point
+│   └── index.css        # Global styles
+├── public/              # Static assets
+├── .env                 # Environment variables (gitignored)
+├── .env.example         # Environment variables template
+├── index.html           # HTML template
+├── vite.config.js       # Vite configuration
+├── tailwind.config.js   # Tailwind configuration
+├── postcss.config.js    # PostCSS configuration
+├── eslint.config.js     # ESLint configuration
+└── package.json         # Project dependencies
 ```
 
 ## 🎨 Features
@@ -146,7 +163,7 @@ All API calls use React Query for:
 - Error handling
 
 ### API Services
-Organized in `services/api.js`:
+Organized in `src/services/api.js`:
 - `authService` - Authentication
 - `profileService` - User profile
 - `recommendationsService` - Recommendations
@@ -154,7 +171,7 @@ Organized in `services/api.js`:
 - `savedService` - Saved repositories
 
 ### Custom Hooks
-Hooks in `hooks/useApi.js`:
+Hooks in `src/hooks/useApi.js`:
 - `useProfileSummary()`
 - `useProfileRepos()`
 - `useProfileStats()`
@@ -184,7 +201,7 @@ Hooks in `hooks/useApi.js`:
 - setTheme()
 ```
 
-## � Routing
+## 🛣️ Routing
 
 Protected routes require authentication:
 - `/dashboard`
@@ -209,7 +226,7 @@ Public routes:
   - `xl`: 1280px
   - `2xl`: 1536px
 
-## � Component Library
+## 🧩 Component Library
 
 ### Core Components
 - `Navbar` - Navigation bar
@@ -222,7 +239,7 @@ Each page is a standalone component with its own logic and styling.
 
 ## 🚀 Deployment
 
-See main [README.md](../README.md) for deployment instructions.
+See the main [README.md](../README.md) and [DEPLOYMENT.md](../DEPLOYMENT.md) for deployment instructions.
 
 **Recommended Platforms:**
 - Vercel
@@ -242,7 +259,7 @@ netlify deploy --prod
 ## 🔧 Build Configuration
 
 ### Vite Config
-- Fast HMR
+- Fast HMR (Hot Module Replacement)
 - Optimized builds
 - Asset optimization
 - Code splitting
@@ -251,9 +268,10 @@ netlify deploy --prod
 Access via `import.meta.env`:
 ```javascript
 const API_URL = import.meta.env.VITE_API_URL;
+const GITHUB_CLIENT_ID = import.meta.env.VITE_GITHUB_CLIENT_ID;
 ```
 
-## � Code Style
+## 📝 Code Style
 
 - ESLint for linting
 - Prettier for formatting
@@ -296,6 +314,10 @@ npm test
 3. Update documentation
 4. Test responsive design
 
-## � Support
+## 📧 Support
 
 For issues, open a GitHub issue or contact the maintainer.
+
+---
+
+[← Back to Main README](../README.md) | [Backend Documentation →](../Backend/README.md)
