@@ -1,0 +1,119 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom scrollbar for dark theme */
+:root {
+  color-scheme: light dark;
+}
+
+/* Light mode scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f6f8fa;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d0d7de;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #afb8c1;
+}
+
+/* Dark mode scrollbar */
+.dark ::-webkit-scrollbar-track {
+  background: #161b22;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #30363d;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #484f58;
+}
+
+/* Matrix text effect for dark mode */
+@keyframes matrix-flicker {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
+}
+
+.matrix-text {
+  animation: matrix-flicker 2s infinite;
+}
+
+/* Card gradient effects */
+.card-gradient-light {
+  background: linear-gradient(135deg, #ffffff 0%, #f6f8fa 100%);
+}
+
+.card-gradient-dark {
+  background: linear-gradient(135deg, #161b22 0%, #1c2128 100%);
+}
+
+/* Glow effect for dark mode */
+.glow-green {
+  box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+}
+
+.glow-blue {
+  box-shadow: 0 0 10px rgba(88, 166, 255, 0.3);
+}
+
+/* Custom button styles */
+@layer components {
+  .btn-primary {
+    @apply px-4 py-2 rounded-lg font-medium transition-all duration-200;
+    @apply bg-light-accent text-white hover:opacity-90;
+    @apply dark:bg-dark-accent dark:hover:opacity-90;
+  }
+
+  .btn-secondary {
+    @apply px-4 py-2 rounded-lg font-medium transition-all duration-200;
+    @apply bg-light-bg-secondary text-light-text border border-light-border;
+    @apply hover:bg-light-border;
+    @apply dark:bg-dark-bg-secondary dark:text-dark-text dark:border-dark-border;
+    @apply dark:hover:bg-dark-bg-tertiary;
+  }
+
+  .card {
+    @apply rounded-lg border transition-all duration-200;
+    @apply bg-white border-light-border;
+    @apply dark:bg-dark-bg-secondary dark:border-dark-border;
+  }
+
+  .input {
+    @apply w-full px-4 py-2 rounded-lg border outline-none transition-all duration-200;
+    @apply bg-white border-light-border text-light-text;
+    @apply focus:border-light-accent focus:ring-2 focus:ring-light-accent focus:ring-opacity-20;
+    @apply dark:bg-dark-bg-tertiary dark:border-dark-border dark:text-dark-text;
+    @apply dark:focus:border-dark-accent dark:focus:ring-dark-accent;
+  }
+}
+
+/* Loading spinner */
+.spinner {
+  border: 2px solid #f3f3f3;
+  border-top: 2px solid #0969da;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+}
+
+.dark .spinner {
+  border: 2px solid #30363d;
+  border-top: 2px solid #58a6ff;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
