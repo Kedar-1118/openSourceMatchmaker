@@ -1,241 +1,301 @@
-# Open Source Matchmaker - Frontend
+# Frontend - Open Source Matchmaker
 
-A beautiful, modern React frontend for the Open Source Matchmaker platform that helps developers discover and contribute to open-source projects matched to their skills and interests.
-
-## 🎨 Features
-
-- **GitHub OAuth Authentication** - Secure login through GitHub
-- **Dark/Light Theme Toggle** - Matrix-inspired dark mode & GitHub-inspired light mode
-- **Smart Recommendations** - AI-powered repository matching based on your skills
-- **Advanced Search** - Filter repositories by language, stars, skills, and more
-- **Contribution History** - Visual heatmap of your GitHub activity
-- **Saved Repositories** - Bookmark projects you're interested in
-- **System Status** - Real-time backend API health monitoring
-- **Responsive Design** - Works beautifully on all devices
+React-based frontend for the Open Source Matchmaker platform.
 
 ## 🛠️ Tech Stack
 
-- **Framework**: React 19 with Vite
-- **Language**: JavaScript
-- **Styling**: Tailwind CSS
-- **State Management**: Zustand
-- **Data Fetching**: React Query (@tanstack/react-query)
-- **Routing**: React Router v7
-- **Charts**: Recharts
-- **Icons**: Lucide React
-- **HTTP Client**: Axios
+- **React 18** - UI library
+- **Vite** - Build tool
+- **TailwindCSS** - Styling
+- **Zustand** - State management
+- **React Query** - Data fetching & caching
+- **React Router** - Routing
+- **Recharts** - Data visualization
+- **Lucide React** - Icons
+- **Axios** - HTTP client
 
-## 📋 Prerequisites
+## � Installation
 
-- Node.js (v18 or higher)
-- npm or yarn
-- Backend API running (see ../Contributor-main)
+```bash
+npm install
+```
 
-## 🚀 Installation
+## ⚙️ Configuration
 
-1. **Install dependencies**:
-   ```bash
-   npm install
-   ```
+Create a `.env` file:
 
-2. **Configure environment variables**:
-   Create a `.env` file in the root directory:
-   ```env
-   VITE_API_URL=http://localhost:3000
-   VITE_APP_NAME=Open Source Matchmaker
-   VITE_ENABLE_API_DISCOVERY=true
-   ```
+```env
+VITE_API_URL=http://localhost:5000
+VITE_GITHUB_CLIENT_ID=your_github_oauth_client_id
+```
 
-3. **Run development server**:
-   ```bash
-   npm run dev
-   ```
+## 🚀 Running the App
 
-4. **Build for production**:
-   ```bash
-   npm run build
-   ```
+### Development
+```bash
+npm run dev
+```
 
-5. **Preview production build**:
-   ```bash
-   npm run preview
-   ```
+### Build for Production
+```bash
+npm run build
+```
+
+### Preview Production Build
+```bash
+npm run preview
+```
+
+App runs on `http://localhost:5173`
 
 ## 📁 Project Structure
 
 ```
 src/
-├── components/          # Reusable UI components
-│   ├── Navbar.jsx      # Navigation bar
-│   ├── ThemeToggle.jsx # Dark/light theme switch
-│   └── RepoCard.jsx    # Repository card component
-├── pages/              # Page components
-│   ├── Login.jsx       # Login page with GitHub OAuth
-│   ├── AuthCallback.jsx # OAuth callback handler
-│   ├── Dashboard.jsx   # Main dashboard with charts
-│   ├── Recommendations.jsx # Recommended repositories
-│   ├── Search.jsx      # Search repositories
-│   ├── Saved.jsx       # Saved/bookmarked repos
-│   ├── History.jsx     # GitHub contribution history
-│   └── System.jsx      # System status & API health
-├── hooks/              # Custom React hooks
-│   └── useApi.js       # React Query hooks for API calls
-├── services/           # API integration
-│   ├── apiClient.js    # Axios instance with interceptors
-│   └── api.js          # API service functions
-├── store/              # Zustand stores
-│   ├── authStore.js    # Authentication state
-│   └── themeStore.js   # Theme state
-├── utils/              # Utility functions
-├── App.jsx             # Main app component
-├── main.jsx            # Entry point
-└── index.css           # Global styles & Tailwind
+├── components/       # Reusable components
+│   ├── Navbar.jsx
+│   ├── RepoCard.jsx
+│   ├── ThemeToggle.jsx
+│   └── ...
+├── hooks/           # Custom React hooks
+│   └── useApi.js    # API integration hooks
+├── pages/           # Page components
+│   ├── Landing.jsx
+│   ├── Login.jsx
+│   ├── Dashboard.jsx
+│   ├── Profile.jsx
+│   ├── Recommendations.jsx
+│   ├── Search.jsx
+│   ├── Saved.jsx
+│   └── History.jsx
+├── services/        # API services
+│   └── api.js       # API client & services
+├── store/           # Zustand stores
+│   ├── authStore.js
+│   └── themeStore.js
+├── App.jsx          # Main app component
+└── main.jsx         # Entry point
+```
 
-## 🎨 Design Philosophy
+## 🎨 Features
 
-### Light Mode (GitHub + HackerRank inspired)
-- Clean, neutral colors
-- Productivity-focused design
-- Professional appearance
-
-### Dark Mode (Matrix + Terminal inspired)
-- Neon green (#00ff41) and blue (#58a6ff) accents
-- Dark gray backgrounds
-- Terminal/hacker aesthetic
-- Glow effects and animations
-
-## 🔑 Key Features
+### Landing Page
+- Hero section with platform overview
+- Feature highlights
+- How it works section
+- Responsive design
 
 ### Authentication
 - GitHub OAuth integration
 - JWT token management
-- Automatic token refresh
-- Persistent login state
+- Protected routes
 
 ### Dashboard
-- **Radar Chart**: Skill distribution
-- **Pie Chart**: Language usage
-- **Line Chart**: Contribution history over time
-- **Stat Cards**: Quick metrics (repos, stars, forks, score)
-- **Recent Repositories**: Latest GitHub activity
+- Profile summary
+- Tech stack visualization
+- Contribution graphs
+- Recent repositories
+
+### Profile
+- User information
+- Repository management
+- Custom tech stack
+- Contribution insights
 
 ### Recommendations
-- Match score percentage
-- Filter by language, stars, domain
-- Quick save/unsave repositories
-- View open issues count
-- Match reasoning explanation
+- AI-powered suggestions
+- Match scoring
+- Save/unsave functionality
 
 ### Search
-- Search by keywords
-- Filter by programming language
-- Minimum star count filter
-- Skills/topics filtering
+- Advanced filters
+- Real-time results
+- Multi-criteria search
 
-### System Status
-- Backend connection health
-- Available API routes
-- Real-time status monitoring
-- Frontend configuration display
+### Saved Repositories
+- Bookmarked projects
+- Quick management
+- Delete functionality
 
-## 🔌 Backend Integration
+### History
+- Contribution heatmap
+- Activity statistics
+- GitHub sync
 
-The frontend dynamically adapts to backend APIs:
+## 🎨 Theming
 
-1. **API Discovery**: Fetches available routes from backend
-2. **Health Monitoring**: Checks backend status every 30 seconds
-3. **Feature Flags**: Enables/disables features based on backend
-4. **Error Handling**: Graceful degradation if backend is unavailable
+### Dark/Light Mode
+The app supports both dark and light themes:
+- Persisted to localStorage
+- Smooth transitions
+- Consistent across pages
 
-### Expected Backend Endpoints
+### Tailwind Configuration
+Custom theme colors defined in `tailwind.config.js`:
+- Light theme colors
+- Dark theme colors
+- Custom utilities
 
+## 🔗 API Integration
+
+### React Query
+All API calls use React Query for:
+- Automatic caching
+- Background refetching
+- Optimistic updates
+- Error handling
+
+### API Services
+Organized in `services/api.js`:
+- `authService` - Authentication
+- `profileService` - User profile
+- `recommendationsService` - Recommendations
+- `searchService` - Repository search
+- `savedService` - Saved repositories
+
+### Custom Hooks
+Hooks in `hooks/useApi.js`:
+- `useProfileSummary()`
+- `useProfileRepos()`
+- `useProfileStats()`
+- `useProfileContributions()`
+- `useRecommendations()`
+- `useSearchRepos()`
+- `useSavedRepos()`
+- `useAddSavedRepo()`
+- `useRemoveSavedRepo()`
+
+## 🛡️ State Management
+
+### Zustand Stores
+
+**authStore.js** - Authentication state
+```javascript
+- user
+- isAuthenticated
+- setAuth()
+- logout()
 ```
-GET  /auth/github          - Initiate GitHub OAuth
-GET  /auth/callback        - Handle OAuth callback
-POST /auth/logout          - Logout user
-GET  /auth/verify          - Verify JWT token
 
-GET  /profile/summary      - User profile summary
-GET  /profile/repos        - User repositories
-GET  /profile/stats        - User statistics
-
-GET  /recommend/repos      - Get recommendations
-GET  /search/repos         - Search repositories
-
-GET  /saved/list           - List saved repos
-POST /saved/add            - Save repository
-POST /saved/remove         - Remove saved repo
-PUT  /saved/update         - Update saved repo
+**themeStore.js** - Theme preferences
+```javascript
+- theme
+- toggleTheme()
+- setTheme()
 ```
 
-## 🌐 Environment Variables
+## � Routing
 
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `VITE_API_URL` | Backend API URL | `http://localhost:3000` |
-| `VITE_APP_NAME` | Application name | `Open Source Matchmaker` |
-| `VITE_ENABLE_API_DISCOVERY` | Enable API discovery | `true` |
+Protected routes require authentication:
+- `/dashboard`
+- `/profile`
+- `/recommendations`
+- `/search`
+- `/saved`
+- `/history`
 
-## 🎯 Development Guidelines
-
-### State Management
-- Use Zustand for global state (auth, theme)
-- Use React Query for server state
-- Persist auth and theme to localStorage
-
-### Styling
-- Use Tailwind utility classes
-- Follow defined color scheme
-- Maintain consistent spacing
-- Ensure dark/light mode compatibility
-
-### API Calls
-- Always use React Query hooks
-- Handle loading and error states
-- Implement proper error messages
-- Use optimistic updates where appropriate
+Public routes:
+- `/` - Landing page
+- `/login` - Login page
+- `/auth/callback` - OAuth callback
 
 ## 📱 Responsive Design
 
-- **Mobile**: Single column layout, hamburger menu
-- **Tablet**: Two column layouts, condensed navigation
-- **Desktop**: Full layout with sidebar navigation
+- Mobile-first approach
+- Breakpoints:
+  - `sm`: 640px
+  - `md`: 768px
+  - `lg`: 1024px
+  - `xl`: 1280px
+  - `2xl`: 1536px
 
-## 🚧 Future Enhancements
+## � Component Library
 
-- [ ] Advanced filtering options
-- [ ] Repository comparison
-- [ ] Contribution tracking
-- [ ] Team collaboration features
-- [ ] Social sharing
-- [ ] Email notifications
-- [ ] Custom skill tagging
-- [ ] Project roadmap view
+### Core Components
+- `Navbar` - Navigation bar
+- `RepoCard` - Repository card
+- `ThemeToggle` - Dark/light mode toggle
+- `ProtectedRoute` - Auth guard
 
-## 🐛 Known Issues
+### Page Components
+Each page is a standalone component with its own logic and styling.
 
-- None currently documented
+## 🚀 Deployment
 
-## 📄 License
+See main [README.md](../README.md) for deployment instructions.
 
-MIT License - see LICENSE file for details
+**Recommended Platforms:**
+- Vercel
+- Netlify
+- Cloudflare Pages
+
+### Vercel Deploy
+```bash
+vercel --prod
+```
+
+### Netlify Deploy
+```bash
+netlify deploy --prod
+```
+
+## 🔧 Build Configuration
+
+### Vite Config
+- Fast HMR
+- Optimized builds
+- Asset optimization
+- Code splitting
+
+### Environment Variables
+Access via `import.meta.env`:
+```javascript
+const API_URL = import.meta.env.VITE_API_URL;
+```
+
+## � Code Style
+
+- ESLint for linting
+- Prettier for formatting
+- Consistent naming conventions
+- Component organization
+
+## 🧪 Testing
+
+```bash
+# Run tests (when implemented)
+npm test
+```
+
+## 🎯 Best Practices
+
+1. **Component Organization**
+   - One component per file
+   - PropTypes or TypeScript
+   - Descriptive naming
+
+2. **State Management**
+   - Use React Query for server state
+   - Use Zustand for global UI state
+   - Local state for component-only data
+
+3. **Performance**
+   - Code splitting with React.lazy
+   - Memoization where needed
+   - Optimized images
+
+4. **Accessibility**
+   - Semantic HTML
+   - ARIA labels
+   - Keyboard navigation
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please follow these steps:
+1. Follow existing code style
+2. Add proper prop validation
+3. Update documentation
+4. Test responsive design
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
+## � Support
 
-## 👥 Support
-
-For issues or questions:
-- Open an issue on GitHub
-- Contact the development team
-
----
-
-**Built with ❤️ for the open-source community**
+For issues, open a GitHub issue or contact the maintainer.

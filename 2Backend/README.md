@@ -1,152 +1,215 @@
-# Open Source Matchmaker - Backend API
+# Backend - Open Source Matchmaker
 
-A powerful backend API that helps developers discover the best open-source repositories to contribute to by analyzing their GitHub activity, tech stack, and matching them with relevant projects.
+Node.js/Express backend server for the Open Source Matchmaker platform.
 
-## Features
+## 🛠️ Tech Stack
 
-- GitHub OAuth authentication
-- Profile analysis and tech stack detection
-- Intelligent repository recommendations
-- Advanced search and filtering
-- Save and track repositories
-- Contributor-friendly project discovery
+- **Node.js** - JavaScript runtime
+- **Express** - Web framework
+- **Supabase** - PostgreSQL database
+- **GitHub OAuth** - Authentication
+- **GitHub GraphQL API** - Contribution data
+- **JWT** - Token authentication
+- **Axios** - HTTP client
 
-## Tech Stack
-
-- Node.js + Express
-- Supabase (PostgreSQL)
-- GitHub REST & GraphQL API
-- JWT Authentication
-
-## Setup
-
-### 1. Install Dependencies
+## 📦 Installation
 
 ```bash
 npm install
 ```
 
-### 2. Environment Variables
+## ⚙️ Configuration
 
-Create a `.env` file based on `.env.example`:
+Create a `.env` file:
 
 ```env
-PORT=3000
+PORT=5000
 NODE_ENV=development
 
-GITHUB_CLIENT_ID=your_github_client_id
-GITHUB_CLIENT_SECRET=your_github_client_secret
-GITHUB_CALLBACK_URL=http://localhost:3000/auth/callback
+# Supabase
+SUPABASE_URL=your_supabase_project_url
+SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
 
-JWT_SECRET=your_jwt_secret_key_here
+# GitHub OAuth
+GITHUB_CLIENT_ID=your_github_oauth_client_id
+GITHUB_CLIENT_SECRET=your_github_oauth_client_secret
+GITHUB_CALLBACK_URL=http://localhost:5000/auth/github/callback
 
-SUPABASE_URL=your_supabase_url
-SUPABASE_ANON_KEY=your_supabase_anon_key
+# JWT
+JWT_SECRET=your_random_secret_key
 
-FRONTEND_URL=http://localhost:5173
+# Frontend URL
+CLIENT_URL=http://localhost:5173
 ```
 
-### 3. GitHub OAuth Setup
+## 🚀 Running the Server
 
-1. Go to [GitHub Developer Settings](https://github.com/settings/developers)
-2. Create a new OAuth App
-3. Set Authorization callback URL to: `http://localhost:3000/auth/callback`
-4. Copy Client ID and Client Secret to your `.env` file
-
-### 4. Run the Server
-
+### Development
 ```bash
 npm run dev
 ```
 
-The API will be available at `http://localhost:3000`
+### Production
+```bash
+npm start
+```
 
-## API Endpoints
+Server runs on `http://localhost:5000`
 
-### Authentication
-
-- `GET /auth/github` - Initiate GitHub OAuth
-- `GET /auth/callback` - GitHub OAuth callback
-- `POST /auth/logout` - Logout user
-- `GET /auth/verify` - Verify JWT token
-
-### Profile
-
-- `GET /profile/summary` - Get user profile summary with analysis
-- `GET /profile/repos` - Get user repositories
-- `GET /profile/stats` - Get user statistics
-
-### Recommendations
-
-- `GET /recommend/repos` - Get personalized repository recommendations
-  - Query params: `difficulty`, `language`, `minStars`, `maxStars`, `domain`, `limit`, `refresh`
-
-### Search
-
-- `GET /search/repos` - Search repositories
-  - Query params: `query`, `language`, `topics`, `minStars`, `sort`, `limit`
-
-### Saved Repositories
-
-- `POST /saved/add` - Save a repository
-- `POST /saved/remove` - Remove a saved repository
-- `GET /saved/list` - List all saved repositories
-- `PUT /saved/update` - Update saved repository notes
-
-## Recommendation Algorithm
-
-The matching algorithm scores repositories based on:
-
-- **Tech Stack Match (35%)** - Match between user's languages and repo language
-- **Recency (20%)** - How recently the repository was updated
-- **Contributor Friendliness (25%)** - Good first issues, documentation, activity
-- **Popularity (10%)** - Stars, forks, watchers
-- **Domain Match (10%)** - Match between user's domains and repo topics
-
-## Database Schema
-
-### users
-- Profile and GitHub integration data
-- Tech stack analysis
-- Activity scores
-
-### saved_repositories
-- User-saved repos for tracking
-- Match scores
-- Personal notes
-
-### user_recommendations
-- Cached recommendations (24h TTL)
-- Match scores and breakdowns
-
-## Security
-
-- JWT-based authentication
-- Row Level Security (RLS) on all tables
-- Rate limiting (100 requests per 15 minutes)
-- Helmet for security headers
-- CORS configuration
-
-## Architecture
+## 📁 Project Structure
 
 ```
 src/
-├── routes/          # API route definitions
-├── controllers/     # Request handlers
-├── services/        # Business logic
+├── config/           # Configuration files
+│   ├── database.js   # Supabase client
+│   └── github.js     # GitHub API config
+├── controllers/      # Route controllers
+│   ├── authController.js
+│   ├── profileController.js
+│   ├── recommendationsController.js
+│   ├── savedController.js
+│   └── searchController.js
+├── middleware/       # Express middleware
+│   ├── auth.js       # JWT authentication
+│   └── errorHandler.js
+├── routes/           # API routes
+│   ├── authRoutes.js
+│   ├── profileRoutes.js
+│   ├── recommendationsRoutes.js
+│   ├── savedRoutes.js
+│   └── searchRoutes.js
+├── services/         # Business logic
 │   ├── githubService.js      # GitHub API integration
 │   ├── analysisService.js    # Profile analysis
-│   └── matchService.js       # Recommendation engine
-├── models/          # Data models
-├── middleware/      # Auth and validation
-├── config/          # Configuration files
-└── utils/           # Helper functions
+│   └── matchService.js       # Repository matching
+└── app.js           # Express app setup
 ```
 
-## Development
+## 🗄️ Database
 
-The backend is built with vanilla JavaScript (no TypeScript) as per project requirements.
+The application uses Supabase (PostgreSQL). Apply migrations in this order:
 
-## License
+1. **Base Tables**
+   ```sql
+   -- supabase/migrations/20251202173826_create_users_and_repos_tables.sql
+   ```
 
-MIT
+2. **Tech Stack Column**
+   ```sql
+   -- supabase/migrations/20251205_add_user_techstack.sql
+   ```
+
+## 📡 API Endpoints
+
+### Authentication
+- `POST /auth/github` - Initiate GitHub OAuth flow
+- `GET /auth/github/callback` - Handle OAuth callback
+- `POST /auth/logout` - Logout user
+
+### Profile
+- `GET /profile/summary` - Get user profile with analysis
+- `GET /profile/repos` - Get user repositories
+- `GET /profile/stats` - Get user statistics
+- `GET /profile/contributions` - Get contribution calendar (GraphQL)
+- `GET /profile/techstack` - Get user tech stack
+- `PUT /profile/techstack` - Update custom tech stack
+
+### Recommendations
+- `GET /recommendations` - Get AI-matched repository recommendations
+
+### Search
+- `GET /search` - Search repositories with filters
+
+### Saved Repositories
+- `GET /saved/list` - List saved repositories
+- `POST /saved/add` - Save a repository
+- `POST /saved/remove` - Remove saved repository
+- `PUT /saved/update` - Update saved repository notes
+
+## 🔐 Authentication Flow
+
+1. Frontend initiates OAuth via `/auth/github`
+2. User authorizes on GitHub
+3. GitHub redirects to `/auth/github/callback`
+4. Backend exchanges code for access token
+5. User record created/updated in Supabase
+6. JWT token issued to frontend
+7. Frontend stores JWT for API requests
+
+## 🔑 GitHub API Integration
+
+### REST API
+- User profile data
+- Repository information
+- Search functionality
+
+### GraphQL API
+- Accurate contribution calendar
+- Year-long contribution history
+- Matches GitHub's native data
+
+## 🛡️ Security
+
+- JWT-based authentication
+- CORS protection
+- Rate limiting
+- Environment variable security
+- Helmet.js security headers
+- Row Level Security (RLS) in Supabase
+
+## 🐛 Error Handling
+
+All routes include comprehensive error handling:
+- Validation errors (400)
+- Authentication errors (401)
+- Not found errors (404)
+- Server errors (500)
+
+## 📊 Logging
+
+Uses `winston` for structured logging:
+- Console output in development
+- File logging in production
+- Error tracking
+- Request logging
+
+## 🚀 Deployment
+
+See main [README.md](../README.md) for deployment instructions.
+
+**Recommended Platforms:**
+- Render
+- Railway
+- Heroku
+
+## 🧪 Testing
+
+```bash
+# Run tests (when implemented)
+npm test
+```
+
+## 📝 Environment Variables
+
+| Variable | Description | Required |
+|----------|-------------|----------|
+| `PORT` | Server port | No (default: 5000) |
+| `NODE_ENV` | Environment | No (default: development) |
+| `SUPABASE_URL` | Supabase project URL | Yes |
+| `SUPABASE_SERVICE_ROLE_KEY` | Supabase service key | Yes |
+| `GITHUB_CLIENT_ID` | GitHub OAuth client ID | Yes |
+| `GITHUB_CLIENT_SECRET` | GitHub OAuth secret | Yes |
+| `GITHUB_CALLBACK_URL` | OAuth callback URL | Yes |
+| `JWT_SECRET` | JWT signing secret | Yes |
+| `CLIENT_URL` | Frontend URL for CORS | Yes |
+
+## 🤝 Contributing
+
+1. Follow existing code style
+2. Add proper error handling
+3. Update documentation
+4. Test your changes
+
+## 📧 Support
+
+For issues, open a GitHub issue or contact the maintainer.
