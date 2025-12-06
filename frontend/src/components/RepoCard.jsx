@@ -1,7 +1,13 @@
 import { Star, GitFork, ExternalLink, Code, Users, Bookmark, BookmarkCheck } from 'lucide-react';
 import { useAddSavedRepo, useRemoveSavedRepo, useSavedRepos } from '../hooks/useApi';
 
-const RepoCard = ({ repo }) => {
+const RepoCard = ({
+    repo,
+    onClick,
+    showSaveButton = true,
+    customAction = null,
+    clickable = true
+}) => {
     const { data: savedReposData } = useSavedRepos();
     const addSaved = useAddSavedRepo();
     const removeSaved = useRemoveSavedRepo();
@@ -14,7 +20,8 @@ const RepoCard = ({ repo }) => {
         (saved.fullName && repo.fullName && saved.fullName === repo.fullName)
     );
 
-    const handleToggleSave = () => {
+    const handleToggleSave = (e) => {
+        e.stopPropagation(); // Prevent card click when saving
         if (isSaved) {
             removeSaved.mutate(repo);
         } else {
@@ -23,9 +30,12 @@ const RepoCard = ({ repo }) => {
     };
 
     return (
-        <div className="card p-6 hover:shadow-lg transition-all animate-fade-in">
+        <div
+            className={`card p-6 hover:shadow-lg transition-all animate-fade-in ${clickable ? 'cursor-pointer' : ''}`}
+            onClick={clickable ? onClick : undefined}
+        >
             <div className="flex items-start justify-between">
-                <div className="flex-1">
+                <div className="flex-1 min-w-0">
                     {/* Header */}
                     <div className="flex items-start space-x-3 mb-3">
                         {repo.matchScore && (
@@ -37,26 +47,30 @@ const RepoCard = ({ repo }) => {
                                 </div>
                             </div>
                         )}
-                        <div className="flex-1">
+                        <div className="flex-1 min-w-0">
                             <h3 className="text-xl font-semibold text-light-text dark:text-dark-text flex items-center space-x-2">
-                                <span>{repo.name}</span>
+                                <span className="truncate">{repo.name}</span>
                                 <a
                                     href={repo.htmlUrl || repo.html_url}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="text-light-accent dark:text-dark-primary hover:opacity-80"
+                                    className="text-light-accent dark:text-dark-primary hover:opacity-80 flex-shrink-0"
+                                    onClick={(e) => e.stopPropagation()}
                                 >
                                     <ExternalLink className="w-5 h-5" />
                                 </a>
                             </h3>
-                            <p className="text-sm text-light-text-secondary dark:text-dark-text-secondary">
+                            <p className="text-sm text-light-text-secondary dark:text-dark-text-secondary truncate">
                                 {repo.owner?.login || repo.fullName || repo.full_name}
                             </p>
                         </div>
                     </div>
 
                     {/* Description */}
-                    <p className="text-light-text dark:text-dark-text mb-4">
+                    <p
+                        className="text-light-text dark:text-dark-text mb-4 line-clamp-3"
+                        style={{ wordBreak: 'break-word', overflowWrap: 'anywhere' }}
+                    >
                         {repo.description || 'No description available'}
                     </p>
 
@@ -109,17 +123,21 @@ const RepoCard = ({ repo }) => {
                 </div>
 
                 {/* Actions */}
-                <button
-                    onClick={handleToggleSave}
-                    className="ml-4 p-2 rounded-lg hover:bg-light-bg-secondary dark:hover:bg-dark-bg-tertiary transition-colors"
-                    title={isSaved ? 'Remove from saved' : 'Save repository'}
-                >
-                    {isSaved ? (
-                        <BookmarkCheck className="w-6 h-6 text-light-accent dark:text-dark-primary" />
-                    ) : (
-                        <Bookmark className="w-6 h-6 text-light-text-secondary dark:text-dark-text-secondary" />
-                    )}
-                </button>
+                {customAction ? (
+                    customAction
+                ) : showSaveButton ? (
+                    <button
+                        onClick={handleToggleSave}
+                        className="ml-4 p-2 rounded-lg hover:bg-light-bg-secondary dark:hover:bg-dark-bg-tertiary transition-colors flex-shrink-0"
+                        title={isSaved ? 'Remove from saved' : 'Save repository'}
+                    >
+                        {isSaved ? (
+                            <BookmarkCheck className="w-6 h-6 text-light-accent dark:text-dark-primary" />
+                        ) : (
+                            <Bookmark className="w-6 h-6 text-light-text-secondary dark:text-dark-text-secondary" />
+                        )}
+                    </button>
+                ) : null}
             </div>
         </div>
     );

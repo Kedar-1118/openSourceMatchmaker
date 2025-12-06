@@ -1,14 +1,17 @@
-import { useState } from 'react';
-import {
-    TrendingUp, Star, GitFork, ExternalLink,
-    Bookmark, BookmarkCheck, Filter, Code, Users, RefreshCw
-} from 'lucide-react';
+import { useState, useMemo } from 'react';
+import { TrendingUp, Filter, RefreshCw } from 'lucide-react';
 import { useRecommendations, useAddSavedRepo, useRemoveSavedRepo, useSavedRepos } from '../hooks/useApi';
 import useToastStore from '../store/toastStore';
 import RepoAnalysisModal from '../components/RepoAnalysisModal';
+import RepoCard from '../components/RepoCard';
+import Pagination from '../components/Pagination';
 
 const Recommendations = () => {
     const [selectedRepo, setSelectedRepo] = useState(null);
+    const [currentPage, setCurrentPage] = useState(1);
+    const REPOS_PER_PAGE = 10;
+    const MAX_REPOS = 40;
+
     // Separate state for form inputs vs applied filters
     const [filterInputs, setFilterInputs] = useState({
         language: '',
@@ -28,9 +31,23 @@ const Recommendations = () => {
     const removeSaved = useRemoveSavedRepo();
     const toast = useToastStore();
 
-    // Extract actual data from API responses
-    const recommendations = recommendationsData?.recommendations || [];
+    // Extract actual data from API responses and limit to 40 repos
+    const allRecommendations = recommendationsData?.recommendations || [];
+    const recommendations = useMemo(() => allRecommendations.slice(0, MAX_REPOS), [allRecommendations]);
     const savedRepos = savedReposData?.repositories || [];
+
+    // Calculate pagination
+    const totalPages = Math.ceil(recommendations.length / REPOS_PER_PAGE);
+    const paginatedRecommendations = useMemo(() => {
+        const startIndex = (currentPage - 1) * REPOS_PER_PAGE;
+        const endIndex = startIndex + REPOS_PER_PAGE;
+        return recommendations.slice(startIndex, endIndex);
+    }, [recommendations, currentPage]);
+
+    const handlePageChange = (page) => {
+        setCurrentPage(page);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
 
     const [showFilters, setShowFilters] = useState(false);
 
@@ -185,8 +202,6 @@ const Recommendations = () => {
                             <RepoCard
                                 key={repo.id}
                                 repo={repo}
-                                isSaved={isSaved(repo.id)}
-                                onToggleSave={() => handleToggleSave(repo)}
                                 onClick={() => setSelectedRepo(repo)}
                             />
                         ))
@@ -200,119 +215,6 @@ const Recommendations = () => {
                         onClose={() => setSelectedRepo(null)}
                     />
                 )}
-            </div>
-        </div>
-    );
-};
-
-const RepoCard = ({ repo, isSaved, onToggleSave, onClick }) => {
-    return (
-        <div
-            className="card p-6 hover:shadow-lg transition-all animate-fade-in cursor-pointer"
-            onClick={onClick}
-        >
-            <div className="flex items-start justify-between">
-                <div className="flex-1 min-w-0">
-                    {/* Header */}
-                    <div className="flex items-start space-x-3 mb-3">
-                        {repo.matchScore && (
-                            <div className="flex-shrink-0">
-                                <div className="w-16 h-16 rounded-full border-4 border-light-accent dark:border-dark-primary flex items-center justify-center">
-                                    <span className="text-lg font-bold text-light-accent dark:text-dark-primary">
-                                        {repo.matchScore}%
-                                    </span>
-                                </div>
-                            </div>
-                        )}
-                        <div className="flex-1 min-w-0">
-                            <h3 className="text-xl font-semibold text-light-text dark:text-dark-text flex items-center space-x-2">
-                                <span className="truncate">{repo.name}</span>
-                                <a
-                                    href={repo.html_url}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="text-light-accent dark:text-dark-primary hover:opacity-80 flex-shrink-0"
-                                >
-                                    <ExternalLink className="w-5 h-5" />
-                                </a>
-                            </h3>
-                            <p className="text-sm text-light-text-secondary dark:text-dark-text-secondary truncate">
-                                {repo.owner?.login || repo.full_name}
-                            </p>
-                        </div>
-                    </div>
-
-                    {/* Description */}
-                    <p
-                        className="text-light-text dark:text-dark-text mb-4 line-clamp-3"
-                        style={{ wordBreak: 'break-word', overflowWrap: 'anywhere' }}
-                    >
-                        {repo.description || 'No description available'}
-                    </p>
-
-                    {/* Stats */}
-                    <div className="flex flex-wrap items-center gap-4 text-sm text-light-text-secondary dark:text-dark-text-secondary mb-4">
-                        <span className="flex items-center space-x-1">
-                            <Star className="w-4 h-4 text-yellow-500" />
-                            <span>{repo.stargazers_count?.toLocaleString() || 0}</span>
-                        </span>
-                        <span className="flex items-center space-x-1">
-                            <GitFork className="w-4 h-4" />
-                            <span>{repo.forks_count?.toLocaleString() || 0}</span>
-                        </span>
-                        {repo.language && (
-                            <span className="flex items-center space-x-1">
-                                <Code className="w-4 h-4" />
-                                <span>{repo.language}</span>
-                            </span>
-                        )}
-                        {repo.open_issues_count > 0 && (
-                            <span className="flex items-center space-x-1 text-light-accent dark:text-dark-primary">
-                                <Users className="w-4 h-4" />
-                                <span>{repo.open_issues_count} open issues</span>
-                            </span>
-                        )}
-                    </div>
-
-                    {/* Topics */}
-                    {repo.topics && repo.topics.length > 0 && (
-                        <div className="flex flex-wrap gap-2 mb-4">
-                            {repo.topics.slice(0, 5).map((topic, index) => (
-                                <span
-                                    key={index}
-                                    className="px-3 py-1 text-xs font-medium rounded-full bg-light-accent/10 text-light-accent dark:bg-dark-primary/10 dark:text-dark-primary"
-                                >
-                                    {topic}
-                                </span>
-                            ))}
-                        </div>
-                    )}
-
-                    {/* Reason for recommendation */}
-                    {repo.matchReason && (
-                        <div className="bg-light-bg-secondary dark:bg-dark-bg-tertiary rounded-lg p-3 border-l-4 border-light-accent dark:border-dark-primary">
-                            <p className="text-sm text-light-text dark:text-dark-text">
-                                <span className="font-semibold">Why this matches:</span> {repo.matchReason}
-                            </p>
-                        </div>
-                    )}
-                </div>
-
-                {/* Actions */}
-                <button
-                    onClick={(e) => {
-                        e.stopPropagation();
-                        onToggleSave();
-                    }}
-                    className="ml-4 p-2 rounded-lg hover:bg-light-bg-secondary dark:hover:bg-dark-bg-tertiary transition-colors"
-                    title={isSaved ? 'Remove from saved' : 'Save repository'}
-                >
-                    {isSaved ? (
-                        <BookmarkCheck className="w-6 h-6 text-light-accent dark:text-dark-primary" />
-                    ) : (
-                        <Bookmark className="w-6 h-6 text-light-text-secondary dark:text-dark-text-secondary" />
-                    )}
-                </button>
             </div>
         </div>
     );

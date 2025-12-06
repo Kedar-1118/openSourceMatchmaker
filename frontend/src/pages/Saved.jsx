@@ -52,16 +52,21 @@ const Saved = () => {
                 {savedRepos && savedRepos.length > 0 ? (
                     <div className="space-y-4">
                         {savedRepos.map((repo) => (
-                            <div key={repo.id} className="relative">
-                                <RepoCard repo={repo} />
-                                <button
-                                    onClick={() => handleRemove(repo)}
-                                    className="absolute bottom-4 right-4 p-2 rounded-lg bg-red-500 hover:bg-red-600 text-white transition-colors shadow-lg"
-                                    title="Remove from saved"
-                                >
-                                    <Trash2 className="w-5 h-5" />
-                                </button>
-                            </div>
+                            <RepoCard
+                                key={repo.id}
+                                repo={repo}
+                                showSaveButton={false}
+                                clickable={false}
+                                customAction={
+                                    <button
+                                        onClick={() => handleRemove(repo)}
+                                        className="ml-4 p-2 rounded-lg bg-red-500 hover:bg-red-600 text-white transition-colors shadow-lg flex-shrink-0"
+                                        title="Remove from saved"
+                                    >
+                                        <Trash2 className="w-5 h-5" />
+                                    </button>
+                                }
+                            />
                         ))}
                     </div>
                 ) : (
