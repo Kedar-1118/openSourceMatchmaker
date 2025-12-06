@@ -4,6 +4,7 @@ import {
     Search, Filter, Plus, X, Save, Code2, Award, Activity
 } from 'lucide-react';
 import RepoCard from '../components/RepoCard';
+import RepoAnalysisModal from '../components/RepoAnalysisModal';
 import {
     useProfileSummary,
     useProfileRepos,
@@ -29,6 +30,7 @@ const Profile = () => {
     const [showAddTech, setShowAddTech] = useState(false);
     const [customTechnologies, setCustomTechnologies] = useState([]);
     const [newTech, setNewTech] = useState({ name: '', proficiency: 'Intermediate', category: 'Language' });
+    const [selectedRepo, setSelectedRepo] = useState(null);
 
     const summary = summaryData?.profile;
     const repos = reposData?.repositories || [];
@@ -346,8 +348,9 @@ const Profile = () => {
                             <RepoCard
                                 key={index}
                                 repo={repo}
-                                clickable={false}
+                                clickable={true}
                                 showSaveButton={false}
+                                onClick={() => setSelectedRepo(repo)}
                             />
                         ))}
                         {filteredRepos.length === 0 && (
@@ -355,6 +358,14 @@ const Profile = () => {
                                 No repositories found matching your filters.
                             </div>
                         )}
+
+                {/* Repository Analysis Modal */}
+                {selectedRepo && (
+                    <RepoAnalysisModal
+                        repo={selectedRepo}
+                        onClose={() => setSelectedRepo(null)}
+                    />
+                )}
                     </div>
                 </div>
 
@@ -405,3 +416,4 @@ const StatCard = ({ icon: Icon, label, value, color }) => {
 };
 
 export default Profile;
+
