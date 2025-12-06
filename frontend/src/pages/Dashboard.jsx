@@ -24,10 +24,28 @@ const Dashboard = () => {
 
     const isLoading = summaryLoading || statsLoading || reposLoading || contributionsLoading;
 
-    // Chart colors
+    // Chart colors - Diverse palette for better visual distinction
     const COLORS = theme === 'dark'
-        ? ['#00ff41', '#58a6ff', '#39ff14', '#00cc33', '#3fb950', '#1f6feb']
-        : ['#0969da', '#1a7f37', '#bf8700', '#cf222e', '#8250df', '#fb8500'];
+        ? [
+            '#4f9eff',  // Bright Blue
+            '#39ff14',  // Neon Green
+            '#ff6b35',  // Vibrant Orange
+            '#a855f7',  // Purple
+            '#ec4899',  // Pink
+            '#14b8a6',  // Teal
+            '#f43f5e',  // Red
+            '#fbbf24',  // Yellow
+        ]
+        : [
+            '#0969da',  // Blue
+            '#1a7f37',  // Green
+            '#fb8500',  // Orange
+            '#8250df',  // Purple
+            '#cf222e',  // Red
+            '#0891b2',  // Teal
+            '#d946ef',  // Magenta
+            '#ca8a04',  // Gold
+        ];
 
     // Transform tech stack data for charts
     const skillsData = summary?.techStack?.map(item => ({

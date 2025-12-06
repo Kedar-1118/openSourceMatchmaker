@@ -5,8 +5,10 @@ import {
 } from 'lucide-react';
 import { useRecommendations, useAddSavedRepo, useRemoveSavedRepo, useSavedRepos } from '../hooks/useApi';
 import useToastStore from '../store/toastStore';
+import RepoAnalysisModal from '../components/RepoAnalysisModal';
 
 const Recommendations = () => {
+    const [selectedRepo, setSelectedRepo] = useState(null);
     // Separate state for form inputs vs applied filters
     const [filterInputs, setFilterInputs] = useState({
         language: '',
@@ -185,18 +187,30 @@ const Recommendations = () => {
                                 repo={repo}
                                 isSaved={isSaved(repo.id)}
                                 onToggleSave={() => handleToggleSave(repo)}
+                                onClick={() => setSelectedRepo(repo)}
                             />
                         ))
                     )}
                 </div>
+
+                {/* Analysis Modal */}
+                {selectedRepo && (
+                    <RepoAnalysisModal
+                        repo={selectedRepo}
+                        onClose={() => setSelectedRepo(null)}
+                    />
+                )}
             </div>
         </div>
     );
 };
 
-const RepoCard = ({ repo, isSaved, onToggleSave }) => {
+const RepoCard = ({ repo, isSaved, onToggleSave, onClick }) => {
     return (
-        <div className="card p-6 hover:shadow-lg transition-all animate-fade-in">
+        <div
+            className="card p-6 hover:shadow-lg transition-all animate-fade-in cursor-pointer"
+            onClick={onClick}
+        >
             <div className="flex items-start justify-between">
                 <div className="flex-1 min-w-0">
                     {/* Header */}
@@ -286,7 +300,10 @@ const RepoCard = ({ repo, isSaved, onToggleSave }) => {
 
                 {/* Actions */}
                 <button
-                    onClick={onToggleSave}
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        onToggleSave();
+                    }}
                     className="ml-4 p-2 rounded-lg hover:bg-light-bg-secondary dark:hover:bg-dark-bg-tertiary transition-colors"
                     title={isSaved ? 'Remove from saved' : 'Save repository'}
                 >

@@ -1,17 +1,28 @@
 import { Star, Trash2 } from 'lucide-react';
 import { useSavedRepos, useRemoveSavedRepo } from '../hooks/useApi';
+import useToastStore from '../store/toastStore';
 import RepoCard from '../components/RepoCard';
 
 const Saved = () => {
     const { data: savedReposData, isLoading } = useSavedRepos();
     const removeSaved = useRemoveSavedRepo();
+    const toast = useToastStore();
 
     // Extract repositories array from API response
     const savedRepos = savedReposData?.repositories || [];
 
     const handleRemove = (repo) => {
-        if (confirm('Are you sure you want to remove this repository from saved?')) {
-            removeSaved.mutate(repo);
+        try {
+            removeSaved.mutate(repo, {
+                onSuccess: () => {
+                    toast.success(`Removed ${repo.name} from saved repositories`);
+                },
+                onError: (error) => {
+                    toast.error(`Failed to remove repository: ${error.message}`);
+                }
+            });
+        } catch (error) {
+            toast.error('Failed to remove repository');
         }
     };
 
