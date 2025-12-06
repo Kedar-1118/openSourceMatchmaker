@@ -341,55 +341,14 @@ const Profile = () => {
                     </div>
 
                     {/* Repository List */}
-                    <div className="space-y-3">
+                    <div className="space-y-4">
                         {filteredRepos.map((repo, index) => (
-                            <div
+                            <RepoCard
                                 key={index}
-                                className="p-4 rounded-lg bg-light-bg-secondary dark:bg-dark-bg-tertiary border border-light-border dark:border-dark-border hover:border-light-accent dark:hover:border-dark-primary transition-all"
-                            >
-                                <div className="flex items-start justify-between">
-                                    <div className="flex-1">
-                                        <div className="flex items-center gap-2 mb-2">
-                                            <a
-                                                href={repo.html_url}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="text-lg font-semibold text-light-accent dark:text-dark-primary hover:underline flex items-center gap-1"
-                                            >
-                                                {repo.name}
-                                                <ExternalLink className="w-4 h-4" />
-                                            </a>
-                                            {repo.private && (
-                                                <span className="px-2 py-1 text-xs rounded bg-yellow-500/20 text-yellow-700 dark:text-yellow-300">
-                                                    Private
-                                                </span>
-                                            )}
-                                        </div>
-                                        <p className="text-sm text-light-text-secondary dark:text-dark-text-secondary mb-3">
-                                            {repo.description || 'No description available'}
-                                        </p>
-                                        <div className="flex items-center gap-4 text-sm text-light-text-secondary dark:text-dark-text-secondary">
-                                            {repo.language && (
-                                                <span className="flex items-center gap-1">
-                                                    <div className="w-3 h-3 rounded-full bg-light-accent dark:bg-dark-primary"></div>
-                                                    {repo.language}
-                                                </span>
-                                            )}
-                                            <span className="flex items-center gap-1">
-                                                <Star className="w-4 h-4" />
-                                                {repo.stargazers_count || 0}
-                                            </span>
-                                            <span className="flex items-center gap-1">
-                                                <GitFork className="w-4 h-4" />
-                                                {repo.forks_count || 0}
-                                            </span>
-                                            <span>
-                                                Updated {new Date(repo.updated_at).toLocaleDateString()}
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                                repo={repo}
+                                clickable={false}
+                                showSaveButton={false}
+                            />
                         ))}
                         {filteredRepos.length === 0 && (
                             <div className="text-center py-12 text-light-text-secondary dark:text-dark-text-secondary">
