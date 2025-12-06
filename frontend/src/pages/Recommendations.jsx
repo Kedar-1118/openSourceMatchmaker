@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import {
     TrendingUp, Star, GitFork, ExternalLink,
-    Bookmark, BookmarkCheck, Filter, Code, Users
+    Bookmark, BookmarkCheck, Filter, Code, Users, RefreshCw
 } from 'lucide-react';
 import { useRecommendations, useAddSavedRepo, useRemoveSavedRepo, useSavedRepos } from '../hooks/useApi';
+import useToastStore from '../store/toastStore';
 
 const Recommendations = () => {
     // Separate state for form inputs vs applied filters
@@ -19,10 +20,11 @@ const Recommendations = () => {
         domain: '',
     });
 
-    const { data: recommendationsData, isLoading } = useRecommendations(appliedFilters);
+    const { data: recommendationsData, isLoading, refetch } = useRecommendations(appliedFilters);
     const { data: savedReposData } = useSavedRepos();
     const addSaved = useAddSavedRepo();
     const removeSaved = useRemoveSavedRepo();
+    const toast = useToastStore();
 
     // Extract actual data from API responses
     const recommendations = recommendationsData?.recommendations || [];
@@ -53,6 +55,12 @@ const Recommendations = () => {
         setAppliedFilters({ language: '', minStars: '', domain: '' });
     };
 
+    const handleRefresh = async () => {
+        toast.info('Refreshing recommendations...');
+        await refetch();
+        toast.success('Recommendations updated!');
+    };
+
     if (isLoading) {
         return (
             <div className="min-h-screen flex items-center justify-center bg-light-bg-secondary dark:bg-dark-bg">
@@ -76,13 +84,24 @@ const Recommendations = () => {
                         </p>
                     </div>
 
-                    <button
-                        onClick={() => setShowFilters(!showFilters)}
-                        className="btn-secondary flex items-center space-x-2"
-                    >
-                        <Filter className="w-4 h-4" />
-                        <span>{showFilters ? 'Hide' : 'Show'} Filters</span>
-                    </button>
+                    <div className="flex items-center space-x-2">
+                        <button
+                            onClick={handleRefresh}
+                            disabled={isLoading}
+                            className="btn-primary flex items-center space-x-2"
+                            title="Refresh recommendations"
+                        >
+                            <RefreshCw className={`w-4 h-4 ${isLoading ? 'animate-spin' : ''}`} />
+                            <span>Refresh</span>
+                        </button>
+                        <button
+                            onClick={() => setShowFilters(!showFilters)}
+                            className="btn-secondary flex items-center space-x-2"
+                        >
+                            <Filter className="w-4 h-4" />
+                            <span>{showFilters ? 'Hide' : 'Show'} Filters</span>
+                        </button>
+                    </div>
                 </div>
 
                 {/* Filters */}
