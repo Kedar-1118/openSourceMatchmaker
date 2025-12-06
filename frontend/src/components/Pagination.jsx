@@ -66,8 +66,8 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
                             key={page}
                             onClick={() => onPageChange(page)}
                             className={`px-4 py-2 rounded-lg font-medium transition-colors ${currentPage === page
-                                    ? 'bg-light-accent dark:bg-dark-primary text-white'
-                                    : 'bg-light-bg dark:bg-dark-bg-secondary border border-light-border dark:border-dark-border text-light-text dark:text-dark-text hover:bg-light-bg-secondary dark:hover:bg-dark-bg-tertiary'
+                                ? 'bg-light-accent dark:bg-dark-primary text-white'
+                                : 'bg-light-bg dark:bg-dark-bg-secondary border border-light-border dark:border-dark-border text-light-text dark:text-dark-text hover:bg-light-bg-secondary dark:hover:bg-dark-bg-tertiary'
                                 }`}
                         >
                             {page}
