@@ -56,6 +56,23 @@
   animation: ocean-shimmer 3s infinite;
 }
 
+/* Toast slide-in animation */
+@keyframes slide-in-right {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.animate-slide-in-right {
+  animation: slide-in-right 0.3s ease-out;
+}
+
 /* Card gradient effects */
 .card-gradient-light {
   background: linear-gradient(135deg, #ffffff 0%, #f6f8fa 100%);

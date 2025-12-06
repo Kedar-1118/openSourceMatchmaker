@@ -4,11 +4,13 @@ import { Github, GitBranch, Code2, Users, Star, ArrowLeft } from 'lucide-react';
 import useAuthStore from '../store/authStore';
 import { authService } from '../services/api';
 import useThemeStore from '../store/themeStore';
+import useToastStore from '../store/toastStore';
 
 const Login = () => {
     const navigate = useNavigate();
     const { isAuthenticated } = useAuthStore();
     const { theme } = useThemeStore();
+    const toast = useToastStore();
 
     useEffect(() => {
         if (isAuthenticated) {
@@ -30,7 +32,7 @@ const Login = () => {
             await authService.initiateGitHubAuth();
         } catch (error) {
             console.error('Login error:', error);
-            alert('Failed to initiate GitHub login. Please try again.');
+            toast.error('Failed to initiate GitHub login. Please try again.');
         }
     };
 

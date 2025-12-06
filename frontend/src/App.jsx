@@ -17,6 +17,7 @@ import Issues from './pages/Issues';
 
 // Components
 import Navbar from './components/Navbar';
+import Toast from './components/Toast';
 
 // Create a client
 const queryClient = new QueryClient({
@@ -113,6 +114,7 @@ function App() {
             {/* Default Route */}
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
+          <Toast />
         </div>
       </BrowserRouter>
     </QueryClientProvider>

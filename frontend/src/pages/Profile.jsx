@@ -12,6 +12,7 @@ import {
     useProfileContributions
 } from '../hooks/useApi';
 import useThemeStore from '../store/themeStore';
+import useToastStore from '../store/toastStore';
 
 const Profile = () => {
     const { data: summaryData, isLoading: summaryLoading } = useProfileSummary();
@@ -20,6 +21,7 @@ const Profile = () => {
     const { data: contributionsData } = useProfileContributions();
     const updateTechStackMutation = useUpdateTechStack();
     const { theme } = useThemeStore();
+    const toast = useToastStore();
 
     const [searchTerm, setSearchTerm] = useState('');
     const [languageFilter, setLanguageFilter] = useState('all');
@@ -91,10 +93,10 @@ const Profile = () => {
     const handleSaveTechStack = async () => {
         try {
             await updateTechStackMutation.mutateAsync(customTechnologies);
-            alert('Tech stack saved successfully!');
+            toast.success('Tech stack saved successfully!');
         } catch (error) {
             console.error('Failed to save tech stack:', error);
-            alert('Failed to save tech stack. Please try again.');
+            toast.error('Failed to save tech stack. Please try again.');
         }
     };
 
