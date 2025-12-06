@@ -359,6 +359,34 @@ jobs:
 - Check CLIENT_ID and CLIENT_SECRET
 - Ensure HTTPS in production
 
+### **404 Error on /callback**
+**Symptom**: `Failed to load resource: the server responded with a status of 404` on the callback URL
+
+**Common Causes & Fixes**:
+1. **Missing `VITE_API_URL` in frontend**
+   - Check: Frontend `.env` has `VITE_API_URL=https://your-backend-url.com`
+   - Solution: Add the environment variable in your hosting platform (Vercel/Netlify)
+   
+2. **Wrong `FRONTEND_URL` in backend**
+   - Check: Backend `.env` has `FRONTEND_URL=https://your-frontend-url.com`
+   - Solution: Update to match your actual frontend domain (no trailing slash)
+   
+3. **Hardcoded localhost URLs**
+   - Check: Search codebase for `http://localhost:3000` or `http://localhost:5173`
+   - Solution: All API calls should use `VITE_API_URL` environment variable
+   - **Fixed in**: `AuthCallback.jsx` now uses centralized `apiClient`
+
+4. **GitHub OAuth callback mismatch**
+   - Check: GitHub OAuth app callback URL = `https://your-backend-url.com/auth/callback`
+   - Solution: Update in [GitHub Developer Settings](https://github.com/settings/developers)
+
+**Verification Steps**:
+1. Open browser DevTools → Network tab
+2. Login with GitHub
+3. Check the callback request URL
+4. If it shows `localhost`, environment variables are not set correctly
+5. Redeploy after setting environment variables
+
 ### Build Failures
 - Clear `node_modules` and reinstall
 - Check Node.js version (use v18+)

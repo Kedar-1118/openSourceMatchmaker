@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Loader2 } from 'lucide-react';
 import useAuthStore from '../store/authStore';
+import { authService } from '../services/api';
 
 const AuthCallback = () => {
     const [searchParams] = useSearchParams();
@@ -30,21 +31,12 @@ const AuthCallback = () => {
                         navigate('/dashboard');
                     } else {
                         // Only token provided, fetch user data from backend
-                        const response = await fetch('http://localhost:3000/auth/verify', {
-                            headers: {
-                                'Authorization': `Bearer ${token}`,
-                                'Content-Type': 'application/json'
-                            }
-                        });
+                        // Temporarily set token so apiClient can use it
+                        setAuth(null, token);
 
-                        if (response.ok) {
-                            const data = await response.json();
-                            setAuth(data.user, token);
-                            navigate('/dashboard');
-                        } else {
-                            setError('Failed to verify authentication');
-                            setTimeout(() => navigate('/login'), 3000);
-                        }
+                        const data = await authService.verifyToken();
+                        setAuth(data.user, token);
+                        navigate('/dashboard');
                     }
                 } catch (err) {
                     console.error('Auth error:', err);
