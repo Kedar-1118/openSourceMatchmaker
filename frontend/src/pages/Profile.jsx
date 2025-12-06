@@ -1,9 +1,9 @@
 import { useState, useMemo, useEffect } from 'react';
 import {
     User, Mail, Calendar, GitBranch, Star, GitFork, TrendingUp,
-    Search, Filter, Plus, X, Save, Code2, Award, Activity,
-    ExternalLink, Trash2, Edit2
+    Search, Filter, Plus, X, Save, Code2, Award, Activity
 } from 'lucide-react';
+import RepoCard from '../components/RepoCard';
 import {
     useProfileSummary,
     useProfileRepos,

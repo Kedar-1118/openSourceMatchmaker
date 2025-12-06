@@ -226,10 +226,9 @@
   border-radius: 4px;
   background: currentColor;
   display: block;
-  margin: -50px auto 0;
+  margin: auto;
   position: relative;
   color: #0969da;
-  transform: translateY(30px);
   box-sizing: border-box;
   animation: animloader 2s ease infinite;
 }
@@ -262,4 +261,49 @@
 .dark .spinner::after,
 .dark .spinner::before {
   color: #4f9eff;
+}
+
+/* Mobile-responsive utilities */
+@media (max-width: 640px) {
+
+  /* Ensure touch targets are large enough */
+  button,
+  a {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Better mobile scrolling */
+  body {
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Touch manipulation for better mobile interaction */
+.touch-manipulation {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Responsive text sizes */
+@media (max-width: 640px) {
+  h1 {
+    font-size: 1.75rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  h3 {
+    font-size: 1.25rem;
+  }
+}
+
+/* Safe area padding for notched devices */
+@supports (padding: max(0px)) {
+  body {
+    padding-left: max(0px, env(safe-area-inset-left));
+    padding-right: max(0px, env(safe-area-inset-right));
+  }
 }

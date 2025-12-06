@@ -86,42 +86,43 @@ const RepoAnalysisModal = ({ repo, onClose }) => {
 
     return (
         <div
-            className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4 backdrop-blur-sm"
+            className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-2 sm:p-4 backdrop-blur-sm"
             style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0 }}
             onClick={onClose}
         >
             <div
-                className="bg-white dark:bg-dark-bg-secondary rounded-xl shadow-2xl max-w-5xl w-full max-h-[90vh] overflow-y-auto"
+                className="bg-white dark:bg-dark-bg-secondary rounded-lg sm:rounded-xl shadow-2xl w-full sm:max-w-5xl max-h-[95vh] sm:max-h-[90vh] overflow-y-auto"
                 onClick={(e) => e.stopPropagation()}
             >
                 {/* Header */}
-                <div className="sticky top-0 bg-white dark:bg-dark-bg-secondary border-b border-light-border dark:border-dark-border p-6 flex items-start justify-between z-10">
-                    <div className="flex-1 min-w-0">
-                        <h2 className="text-2xl font-bold text-light-text dark:text-dark-text mb-2 flex items-center gap-2">
-                            <Code className="w-6 h-6 text-light-accent dark:text-dark-primary flex-shrink-0" />
+                <div className="sticky top-0 bg-white dark:bg-dark-bg-secondary border-b border-light-border dark:border-dark-border p-4 sm:p-6 flex items-start justify-between z-10">
+                    <div className="flex-1 min-w-0 pr-2">
+                        <h2 className="text-xl sm:text-2xl font-bold text-light-text dark:text-dark-text mb-2 flex items-center gap-2">
+                            <Code className="w-5 h-5 sm:w-6 sm:h-6 text-light-accent dark:text-dark-primary flex-shrink-0" />
                             <span className="truncate">{repo.name}</span>
                         </h2>
                         <a
                             href={repo.html_url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-sm text-light-accent dark:text-dark-primary hover:underline flex items-center gap-1"
+                            className="text-xs sm:text-sm text-light-accent dark:text-dark-primary hover:underline flex items-center gap-1"
+                            onClick={(e) => e.stopPropagation()}
                         >
-                            {repo.full_name}
-                            <ExternalLink className="w-4 h-4" />
+                            <span className="truncate">{repo.full_name}</span>
+                            <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
                         </a>
                     </div>
                     <button
                         onClick={onClose}
-                        className="ml-4 p-2 rounded-lg hover:bg-light-bg-secondary dark:hover:bg-dark-bg-tertiary transition-colors flex-shrink-0"
+                        className="p-2 rounded-lg hover:bg-light-bg-secondary dark:hover:bg-dark-bg-tertiary transition-colors flex-shrink-0 touch-manipulation"
                         aria-label="Close modal"
                     >
-                        <X className="w-6 h-6 text-light-text dark:text-dark-text" />
+                        <X className="w-5 h-5 sm:w-6 sm:h-6 text-light-text dark:text-dark-text" />
                     </button>
                 </div>
 
                 {/* Content */}
-                <div className="p-6 space-y-6">
+                <div className="p-4 sm:p-6 space-y-4 sm:space-y-6">
                     {isLoading ? (
                         <div className="flex items-center justify-center py-12">
                             <SyncLoader
@@ -131,15 +132,15 @@ const RepoAnalysisModal = ({ repo, onClose }) => {
                             />
                         </div>
                     ) : error ? (
-                        <div className="card p-6 bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800">
-                            <p className="text-red-800 dark:text-red-200">
+                        <div className="card p-4 sm:p-6 bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800">
+                            <p className="text-sm sm:text-base text-red-800 dark:text-red-200">
                                 Failed to load analysis: {error}
                             </p>
                         </div>
                     ) : analysisData ? (
                         <>
                             {/* Repository Stats */}
-                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
                                 <StatCard
                                     icon={Star}
                                     label="Stars"
