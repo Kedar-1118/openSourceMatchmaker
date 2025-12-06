@@ -198,13 +198,24 @@ const Recommendations = () => {
                             </p>
                         </div>
                     ) : (
-                        recommendations?.map((repo) => (
-                            <RepoCard
-                                key={repo.id}
-                                repo={repo}
-                                onClick={() => setSelectedRepo(repo)}
+                        <>
+                            <div className="grid grid-cols-1 gap-6">
+                                {paginatedRecommendations?.map((repo) => (
+                                    <RepoCard
+                                        key={repo.id}
+                                        repo={repo}
+                                        onClick={() => setSelectedRepo(repo)}
+                                    />
+                                ))}
+                            </div>
+
+                            {/* Pagination */}
+                            <Pagination
+                                currentPage={currentPage}
+                                totalPages={totalPages}
+                                onPageChange={handlePageChange}
                             />
-                        ))
+                        </>
                     )}
                 </div>
 

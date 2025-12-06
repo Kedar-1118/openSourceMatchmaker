@@ -1,27 +1,53 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { Search, Filter, ExternalLink, MessageSquare, Calendar, Tag, Star, AlertCircle } from 'lucide-react';
 import { useRecommendedIssues } from '../hooks/useApi';
 import Loading from '../components/Loading';
 import ErrorMessage from '../components/ErrorMessage';
+import Pagination from '../components/Pagination';
 
 const Issues = () => {
     const [difficulty, setDifficulty] = useState('all');
     const [language, setLanguage] = useState('');
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedLabels, setSelectedLabels] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const ISSUES_PER_PAGE = 20;
+    const MAX_ISSUES = 200;
 
     const { data, isLoading, error, refetch } = useRecommendedIssues({
         difficulty,
         language: language || undefined
     });
 
-    const issues = data?.issues || [];
+    const allIssues = data?.issues || [];
+    // Limit to 200 issues
+    const issues = useMemo(() => allIssues.slice(0, MAX_ISSUES), [allIssues]);
 
     // Filter issues by search term
-    const filteredIssues = issues.filter(issue =>
-        issue.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        issue.repository.name.toLowerCase().includes(searchTerm.toLowerCase())
+    const filteredIssues = useMemo(() =>
+        issues.filter(issue =>
+            issue.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            issue.repository.name.toLowerCase().includes(searchTerm.toLowerCase())
+        ), [issues, searchTerm]
     );
+
+    // Calculate pagination
+    const totalPages = Math.ceil(filteredIssues.length / ISSUES_PER_PAGE);
+    const paginatedIssues = useMemo(() => {
+        const startIndex = (currentPage - 1) * ISSUES_PER_PAGE;
+        const endIndex = startIndex + ISSUES_PER_PAGE;
+        return filteredIssues.slice(startIndex, endIndex);
+    }, [filteredIssues, currentPage]);
+
+    const handlePageChange = (page) => {
+        setCurrentPage(page);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    // Reset to page 1 when filters change
+    useMemo(() => {
+        setCurrentPage(1);
+    }, [difficulty, language, searchTerm]);
 
     // Get unique languages from issues
     const availableLanguages = [...new Set(issues.map(i => i.repository.language).filter(Boolean))];
@@ -132,9 +158,20 @@ const Issues = () => {
                             </p>
                         </div>
                     ) : (
-                        filteredIssues.map((issue) => (
-                            <IssueCard key={issue.id} issue={issue} />
-                        ))
+                        <>
+                            <div className="space-y-4">
+                                {paginatedIssues.map((issue) => (
+                                    <IssueCard key={issue.id} issue={issue} />
+                                ))}
+                            </div>
+
+                            {/* Pagination */}
+                            <Pagination
+                                currentPage={currentPage}
+                                totalPages={totalPages}
+                                onPageChange={handlePageChange}
+                            />
+                        </>
                     )}
                 </div>
             </div>
