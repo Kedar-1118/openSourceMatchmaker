@@ -178,25 +178,26 @@ const IssueCard = ({ issue }) => {
     return (
         <div className="card p-6 hover:shadow-lg transition-all">
             <div className="flex items-start justify-between mb-4">
-                <div className="flex-1">
+                <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-2">
                         <a
                             href={issue.htmlUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-xl font-semibold text-light-accent dark:text-dark-primary hover:underline flex items-center gap-2"
+                            className="text-xl font-semibold text-light-accent dark:text-dark-primary hover:underline flex items-center gap-2 break-words"
+                            style={{ wordBreak: 'break-word', overflowWrap: 'anywhere' }}
                         >
-                            {issue.title}
-                            <ExternalLink className="w-4 h-4" />
+                            <span className="line-clamp-2">{issue.title}</span>
+                            <ExternalLink className="w-4 h-4 flex-shrink-0" />
                         </a>
                     </div>
 
-                    <div className="flex items-center gap-3 text-sm text-light-text-secondary dark:text-dark-text-secondary mb-3">
+                    <div className="flex items-center gap-3 text-sm text-light-text-secondary dark:text-dark-text-secondary mb-3 flex-wrap">
                         <a
                             href={issue.repository.html_url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="hover:text-light-accent dark:hover:text-dark-primary"
+                            className="hover:text-light-accent dark:hover:text-dark-primary truncate max-w-xs"
                         >
                             {issue.repository.full_name}
                         </a>
@@ -218,7 +219,10 @@ const IssueCard = ({ issue }) => {
 
                     {/* Issue Body Preview */}
                     {issue.body && (
-                        <p className="text-sm text-light-text-secondary dark:text-dark-text-secondary mb-3 line-clamp-2">
+                        <p
+                            className="text-sm text-light-text-secondary dark:text-dark-text-secondary mb-3 line-clamp-2"
+                            style={{ wordBreak: 'break-word', overflowWrap: 'anywhere' }}
+                        >
                             {issue.body}
                         </p>
                     )}

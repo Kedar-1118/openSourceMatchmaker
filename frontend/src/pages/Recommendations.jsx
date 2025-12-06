@@ -194,12 +194,11 @@ const Recommendations = () => {
     );
 };
 
-// Repository Card Component
 const RepoCard = ({ repo, isSaved, onToggleSave }) => {
     return (
         <div className="card p-6 hover:shadow-lg transition-all animate-fade-in">
             <div className="flex items-start justify-between">
-                <div className="flex-1">
+                <div className="flex-1 min-w-0">
                     {/* Header */}
                     <div className="flex items-start space-x-3 mb-3">
                         {repo.matchScore && (
@@ -211,26 +210,29 @@ const RepoCard = ({ repo, isSaved, onToggleSave }) => {
                                 </div>
                             </div>
                         )}
-                        <div className="flex-1">
+                        <div className="flex-1 min-w-0">
                             <h3 className="text-xl font-semibold text-light-text dark:text-dark-text flex items-center space-x-2">
-                                <span>{repo.name}</span>
+                                <span className="truncate">{repo.name}</span>
                                 <a
                                     href={repo.html_url}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="text-light-accent dark:text-dark-primary hover:opacity-80"
+                                    className="text-light-accent dark:text-dark-primary hover:opacity-80 flex-shrink-0"
                                 >
                                     <ExternalLink className="w-5 h-5" />
                                 </a>
                             </h3>
-                            <p className="text-sm text-light-text-secondary dark:text-dark-text-secondary">
+                            <p className="text-sm text-light-text-secondary dark:text-dark-text-secondary truncate">
                                 {repo.owner?.login || repo.full_name}
                             </p>
                         </div>
                     </div>
 
                     {/* Description */}
-                    <p className="text-light-text dark:text-dark-text mb-4">
+                    <p
+                        className="text-light-text dark:text-dark-text mb-4 line-clamp-3"
+                        style={{ wordBreak: 'break-word', overflowWrap: 'anywhere' }}
+                    >
                         {repo.description || 'No description available'}
                     </p>
 

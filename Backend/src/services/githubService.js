@@ -301,29 +301,31 @@ class GitHubService {
    */
   async getRepositoryIssues(owner, repo, labels = null) {
     try {
-      const params = {
-        state: 'open',
-        per_page: 50,
-        sort: 'created',
-        direction: 'desc'
-      };
+      const url = `${githubConfig.baseURL}/repos/${owner}/${repo}/issues?state=open&per_page=100`;
 
-      if (labels) {
-        params.labels = labels;
+      const response = await axios.get(url, {
+        headers: {
+          'Authorization': `Bearer ${this.accessToken}`,
+          'Accept': 'application/vnd.github+json'
+        }
+      });
+
+      if (response.status !== 200) {
+        console.error(`[GitHubService] Error fetching issues: ${response.status}`, response.statusText);
+        return [];
       }
 
-      const response = await axios.get(
-        `${githubConfig.baseURL}/repos/${owner}/${repo}/issues`,
-        {
-          headers: this.headers,
-          params
-        }
-      );
+      const issues = response.data;
 
       // Filter out PRs
-      return response.data.filter(issue => !issue.pull_request);
+      const filteredIssues = issues.filter(issue => !issue.pull_request);
+
+      console.log(`[GitHubService] Fetched ${filteredIssues.length} issues from ${owner}/${repo}`);
+
+      return filteredIssues;
     } catch (error) {
-      throw new Error(`Failed to fetch repository issues: ${error.message}`);
+      console.error(`[GitHubService] Error fetching issues from ${owner}/${repo}:`, error.message);
+      return []; // Return empty array instead of throwing to prevent cascading failures
     }
   }
 }
