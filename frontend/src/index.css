@@ -154,27 +154,112 @@
   }
 }
 
-/* Loading spinner */
-.spinner {
-  border: 2px solid #f3f3f3;
-  border-top: 2px solid #0969da;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  animation: spin 1s linear infinite;
+/* Custom Loader - Bouncing Dots */
+.loader {
+  width: 16px;
+  height: 16px;
+  box-shadow: 0 30px, 0 -30px;
+  border-radius: 4px;
+  background: currentColor;
+  display: block;
+  margin: -50px auto 0;
+  position: relative;
+  color: #0969da;
+  transform: translateY(30px);
+  box-sizing: border-box;
+  animation: animloader 2s ease infinite;
 }
 
-.dark .spinner {
-  border: 2px solid #30363d;
-  border-top: 2px solid #58a6ff;
+.loader::after,
+.loader::before {
+  content: '';
+  box-sizing: border-box;
+  width: 16px;
+  height: 16px;
+  box-shadow: 0 30px, 0 -30px;
+  border-radius: 4px;
+  background: currentColor;
+  color: #0969da;
+  position: absolute;
+  left: 30px;
+  top: 0;
+  animation: animloader 2s 0.2s ease infinite;
 }
 
-@keyframes spin {
+.loader::before {
+  animation-delay: 0.4s;
+  left: 60px;
+}
+
+/* Dark mode loader */
+.dark .loader {
+  color: #4f9eff;
+}
+
+.dark .loader::after,
+.dark .loader::before {
+  color: #4f9eff;
+}
+
+@keyframes animloader {
   0% {
-    transform: rotate(0deg);
+    top: 0;
+    color: #0969da;
+  }
+
+  50% {
+    top: 30px;
+    color: rgba(9, 105, 218, 0.2);
   }
 
   100% {
-    transform: rotate(360deg);
+    top: 0;
+    color: #0969da;
   }
+}
+
+/* Legacy spinner class - redirect to loader */
+.spinner {
+  width: 16px;
+  height: 16px;
+  box-shadow: 0 30px, 0 -30px;
+  border-radius: 4px;
+  background: currentColor;
+  display: block;
+  margin: -50px auto 0;
+  position: relative;
+  color: #0969da;
+  transform: translateY(30px);
+  box-sizing: border-box;
+  animation: animloader 2s ease infinite;
+}
+
+.spinner::after,
+.spinner::before {
+  content: '';
+  box-sizing: border-box;
+  width: 16px;
+  height: 16px;
+  box-shadow: 0 30px, 0 -30px;
+  border-radius: 4px;
+  background: currentColor;
+  color: #0969da;
+  position: absolute;
+  left: 30px;
+  top: 0;
+  animation: animloader 2s 0.2s ease infinite;
+}
+
+.spinner::before {
+  animation-delay: 0.4s;
+  left: 60px;
+}
+
+.dark .spinner {
+  color: #4f9eff;
+}
+
+.dark .spinner::after,
+.dark .spinner::before {
+  color: #4f9eff;
 }
