@@ -16,12 +16,25 @@
    cd frontend
    ```
 
-3. **Deploy**
+3. **CRITICAL: Ensure `vercel.json` exists** (already included in repo)
+   This file ensures SPA routing works correctly and prevents 404 errors on routes like `/auth/callback`:
+   ```json
+   {
+     "rewrites": [
+       {
+         "source": "/(.*)",
+         "destination": "/index.html"
+       }
+     ]
+   }
+   ```
+
+4. **Deploy**
    ```bash
    vercel
    ```
 
-4. **Environment Variables**
+5. **Environment Variables**
    Add in Vercel dashboard:
    ```
    VITE_API_URL=https://your-backend-url.com
@@ -29,7 +42,7 @@
    VITE_ENABLE_API_DISCOVERY=true
    ```
 
-5. **Production Deploy**
+6. **Production Deploy**
    ```bash
    vercel --prod
    ```
@@ -41,18 +54,24 @@
    npm install -g netlify-cli
    ```
 
-2. **Build**
+2. **CRITICAL: Create `_redirects` file** in `frontend/public`:
+   ```
+   /*    /index.html   200
+   ```
+   This prevents 404 errors on SPA routes like `/auth/callback`.
+
+3. **Build**
    ```bash
    cd frontend
    npm run build
    ```
 
-3. **Deploy**
+4. **Deploy**
    ```bash
    netlify deploy --prod --dir=dist
    ```
 
-4. **Set Environment Variables** in Netlify dashboard
+5. **Set Environment Variables** in Netlify dashboard
 
 ### Option 3: Railway/Render (For Both Backend & Frontend)
 
