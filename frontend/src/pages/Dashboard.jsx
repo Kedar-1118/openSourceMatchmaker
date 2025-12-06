@@ -85,7 +85,7 @@ const Dashboard = () => {
                 {/* Header */}
                 <div>
                     <h1 className="text-3xl font-bold text-light-text dark:text-dark-text mb-2">
-                        Welcome back, <span className="dark:text-dark-matrix">{summary?.username || 'Developer'}</span>! 👋
+                        Welcome back, <span className="dark:text-dark-primary">{summary?.username || 'Developer'}</span>! 👋
                     </h1>
                     <p className="text-light-text-secondary dark:text-dark-text-secondary">
                         Here's your open-source contribution overview
@@ -98,19 +98,19 @@ const Dashboard = () => {
                         icon={GitBranch}
                         label="Public Repos"
                         value={summary?.totalRepos || 0}
-                        color="text-light-accent dark:text-dark-matrix"
+                        color="text-light-accent dark:text-dark-primary"
                     />
                     <StatCard
                         icon={Star}
                         label="Total Stars"
                         value={summary?.totalStars || 0}
-                        color="text-yellow-500 dark:text-dark-matrix"
+                        color="text-yellow-500 dark:text-dark-primary"
                     />
                     <StatCard
                         icon={GitFork}
                         label="Total Forks"
                         value={summary?.totalForks || 0}
-                        color="text-green-600 dark:text-dark-matrix"
+                        color="text-green-600 dark:text-dark-primary"
                     />
                     <StatCard
                         icon={TrendingUp}
@@ -240,7 +240,7 @@ const Dashboard = () => {
                         {repos?.slice(0, 5).map((repo, index) => (
                             <div
                                 key={index}
-                                className="flex items-center justify-between p-4 rounded-lg bg-light-bg-secondary dark:bg-dark-bg-tertiary border border-light-border dark:border-dark-border hover:border-light-accent dark:hover:border-dark-matrix transition-all"
+                                className="flex items-center justify-between p-4 rounded-lg bg-light-bg-secondary dark:bg-dark-bg-tertiary border border-light-border dark:border-dark-border hover:border-light-accent dark:hover:border-dark-primary transition-all"
                             >
                                 <div className="flex-1">
                                     <h4 className="font-semibold text-light-text dark:text-dark-text">{repo.name}</h4>

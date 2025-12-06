@@ -8,7 +8,7 @@ const System = () => {
 
     const getStatusColor = () => {
         if (health?.status === 'connected') {
-            return 'text-green-600 dark:text-dark-matrix';
+            return 'text-green-600 dark:text-dark-primary';
         }
         return 'text-red-600';
     };
@@ -29,7 +29,7 @@ const System = () => {
                 {/* Header */}
                 <div>
                     <h1 className="text-3xl font-bold text-light-text dark:text-dark-text flex items-center space-x-2">
-                        <Settings className="w-8 h-8 text-light-accent dark:text-dark-matrix" />
+                        <Settings className="w-8 h-8 text-light-accent dark:text-dark-primary" />
                         <span>System Status</span>
                     </h1>
                     <p className="text-light-text-secondary dark:text-dark-text-secondary mt-2">
@@ -127,7 +127,7 @@ const System = () => {
                                             {path}
                                         </p>
                                     </div>
-                                    <CheckCircle className="w-5 h-5 text-green-600 dark:text-dark-matrix" />
+                                    <CheckCircle className="w-5 h-5 text-green-600 dark:text-dark-primary" />
                                 </div>
                             ))}
                         </div>
@@ -174,7 +174,7 @@ const ConfigItem = ({ label, value, enabled }) => (
         </div>
         {enabled !== undefined && (
             enabled ? (
-                <CheckCircle className="w-5 h-5 text-green-600 dark:text-dark-matrix" />
+                <CheckCircle className="w-5 h-5 text-green-600 dark:text-dark-primary" />
             ) : (
                 <XCircle className="w-5 h-5 text-red-600" />
             )

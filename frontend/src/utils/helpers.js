@@ -53,7 +53,7 @@ export const timeAgo = (date) => {
  * Calculate match percentage color
  */
 export const getMatchColor = (score) => {
-    if (score >= 80) return 'text-green-600 dark:text-dark-matrix';
+    if (score >= 80) return 'text-green-600 dark:text-dark-success';
     if (score >= 60) return 'text-blue-600 dark:text-dark-accent';
     if (score >= 40) return 'text-yellow-600 dark:text-yellow-500';
     return 'text-red-600';

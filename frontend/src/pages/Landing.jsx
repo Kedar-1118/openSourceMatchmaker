@@ -67,9 +67,9 @@ const Landing = () => {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between items-center h-16">
                         <div className="flex items-center space-x-2">
-                            <GitBranch className="w-8 h-8 text-light-accent dark:text-dark-matrix" />
+                            <GitBranch className="w-8 h-8 text-light-accent dark:text-dark-primary" />
                             <span className="text-xl font-bold text-light-text dark:text-dark-text">
-                                <span className="dark:text-dark-matrix">OS</span> Matchmaker
+                                <span className="dark:text-dark-primary">OS</span> Matchmaker
                             </span>
                         </div>
                         <div className="flex items-center space-x-4">
@@ -90,9 +90,9 @@ const Landing = () => {
             <section className="relative overflow-hidden">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
                     <div className="text-center space-y-8">
-                        <div className="inline-flex items-center space-x-2 px-4 py-2 rounded-full bg-light-accent/10 dark:bg-dark-matrix/10 border border-light-accent/20 dark:border-dark-matrix/20">
-                            <Zap className="w-4 h-4 text-light-accent dark:text-dark-matrix" />
-                            <span className="text-sm font-medium text-light-accent dark:text-dark-matrix">
+                        <div className="inline-flex items-center space-x-2 px-4 py-2 rounded-full bg-light-accent/10 dark:bg-dark-primary/10 border border-light-accent/20 dark:border-dark-primary/20">
+                            <Zap className="w-4 h-4 text-light-accent dark:text-dark-primary" />
+                            <span className="text-sm font-medium text-light-accent dark:text-dark-primary">
                                 AI-Powered Repository Matching
                             </span>
                         </div>
@@ -100,7 +100,7 @@ const Landing = () => {
                         <h1 className="text-5xl md:text-7xl font-bold text-light-text dark:text-dark-text leading-tight">
                             Find Your Perfect
                             <br />
-                            <span className="text-light-accent dark:text-dark-matrix">Open Source</span> Match
+                            <span className="text-light-accent dark:text-dark-primary">Open Source</span> Match
                         </h1>
 
                         <p className="text-xl md:text-2xl text-light-text-secondary dark:text-dark-text-secondary max-w-3xl mx-auto">
@@ -128,7 +128,7 @@ const Landing = () => {
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 pt-16">
                             {stats.map((stat, index) => (
                                 <div key={index} className="space-y-2">
-                                    <div className="text-4xl md:text-5xl font-bold text-light-accent dark:text-dark-matrix">
+                                    <div className="text-4xl md:text-5xl font-bold text-light-accent dark:text-dark-primary">
                                         {stat.value}
                                     </div>
                                     <div className="text-sm text-light-text-secondary dark:text-dark-text-secondary">
@@ -142,7 +142,7 @@ const Landing = () => {
 
                 {/* Decorative elements */}
                 <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none opacity-20">
-                    <div className="absolute top-20 left-10 w-72 h-72 bg-light-accent dark:bg-dark-matrix rounded-full blur-3xl"></div>
+                    <div className="absolute top-20 left-10 w-72 h-72 bg-light-accent dark:bg-dark-primary rounded-full blur-3xl"></div>
                     <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-500 dark:bg-blue-500 rounded-full blur-3xl"></div>
                 </div>
             </section>
@@ -165,8 +165,8 @@ const Landing = () => {
                                 key={index}
                                 className="card p-6 hover:shadow-xl transition-all hover:-translate-y-1 group"
                             >
-                                <div className="w-12 h-12 rounded-lg bg-light-accent/10 dark:bg-dark-matrix/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                                    <feature.icon className="w-6 h-6 text-light-accent dark:text-dark-matrix" />
+                                <div className="w-12 h-12 rounded-lg bg-light-accent/10 dark:bg-dark-primary/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                                    <feature.icon className="w-6 h-6 text-light-accent dark:text-dark-primary" />
                                 </div>
                                 <h3 className="text-xl font-semibold text-light-text dark:text-dark-text mb-2">
                                     {feature.title}
@@ -212,7 +212,7 @@ const Landing = () => {
                         ].map((item, index) => (
                             <div key={index} className="relative">
                                 <div className="text-center space-y-4">
-                                    <div className="text-6xl font-bold text-light-accent/20 dark:text-dark-matrix/20">
+                                    <div className="text-6xl font-bold text-light-accent/20 dark:text-dark-primary/20">
                                         {item.step}
                                     </div>
                                     <h3 className="text-2xl font-semibold text-light-text dark:text-dark-text">
@@ -224,7 +224,7 @@ const Landing = () => {
                                 </div>
                                 {index < 2 && (
                                     <div className="hidden md:block absolute top-1/3 -right-4 w-8">
-                                        <ArrowRight className="w-8 h-8 text-light-accent/30 dark:text-dark-matrix/30" />
+                                        <ArrowRight className="w-8 h-8 text-light-accent/30 dark:text-dark-primary/30" />
                                     </div>
                                 )}
                             </div>
@@ -234,7 +234,7 @@ const Landing = () => {
             </section>
 
             {/* CTA Section */}
-            <section className="py-24 bg-gradient-to-r from-light-accent/10 to-purple-500/10 dark:from-dark-matrix/10 dark:to-blue-500/10">
+            <section className="py-24 bg-gradient-to-r from-light-accent/10 to-purple-500/10 dark:from-dark-primary/10 dark:to-blue-500/10">
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-8">
                     <h2 className="text-4xl md:text-5xl font-bold text-light-text dark:text-dark-text">
                         Ready to Start Contributing?
@@ -258,7 +258,7 @@ const Landing = () => {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
                         <div className="flex items-center space-x-2">
-                            <GitBranch className="w-6 h-6 text-light-accent dark:text-dark-matrix" />
+                            <GitBranch className="w-6 h-6 text-light-accent dark:text-dark-primary" />
                             <span className="font-semibold text-light-text dark:text-dark-text">
                                 OS Matchmaker
                             </span>

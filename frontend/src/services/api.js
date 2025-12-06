@@ -130,6 +130,16 @@ export const savedService = {
     },
 };
 
+export const issueService = {
+    // Get recommended issues
+    getRecommendations: async (params = {}) => {
+        console.log('[API] Fetching issue recommendations with params:', params);
+        const response = await apiClient.get('/issues/recommendations', { params });
+        console.log('[API] Received issues:', response.data);
+        return response.data;
+    },
+};
+
 // API Discovery service for backend awareness
 export const systemService = {
     // Get API routes documentation
@@ -153,3 +163,4 @@ export const systemService = {
         }
     },
 };
+

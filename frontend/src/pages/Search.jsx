@@ -31,7 +31,7 @@ const Search = () => {
                 {/* Header */}
                 <div>
                     <h1 className="text-3xl font-bold text-light-text dark:text-dark-text flex items-center space-x-2">
-                        <SearchIcon className="w-8 h-8 text-light-accent dark:text-dark-matrix" />
+                        <SearchIcon className="w-8 h-8 text-light-accent dark:text-dark-primary" />
                         <span>Search Repositories</span>
                     </h1>
                     <p className="text-light-text-secondary dark:text-dark-text-secondary mt-2">
@@ -104,7 +104,7 @@ const Search = () => {
                 {/* Results */}
                 {isLoading ? (
                     <div className="flex justify-center py-12">
-                        <Loader2 className="w-12 h-12 animate-spin text-light-accent dark:text-dark-matrix" />
+                        <Loader2 className="w-12 h-12 animate-spin text-light-accent dark:text-dark-primary" />
                     </div>
                 ) : results && results.length > 0 ? (
                     <div className="space-y-4">

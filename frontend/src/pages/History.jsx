@@ -88,9 +88,9 @@ const History = () => {
 
     const getColorClass = (count) => {
         if (count === 0) return 'bg-light-bg-secondary dark:bg-dark-bg-secondary border border-light-border dark:border-dark-border';
-        if (count < 3) return 'bg-green-200 dark:bg-dark-matrix/30 border border-green-300 dark:border-dark-matrix/40';
-        if (count < 6) return 'bg-green-400 dark:bg-dark-matrix/60 border border-green-500 dark:border-dark-matrix/70';
-        return 'bg-green-600 dark:bg-dark-matrix border border-green-700 dark:border-dark-matrix';
+        if (count < 3) return 'bg-green-200 dark:bg-dark-success/30 border border-green-300 dark:border-dark-success/40';
+        if (count < 6) return 'bg-green-400 dark:bg-dark-success/60 border border-green-500 dark:border-dark-success/70';
+        return 'bg-green-600 dark:bg-dark-success border border-green-700 dark:border-dark-success';
     };
 
     if (isLoading) {
@@ -112,12 +112,12 @@ const History = () => {
                                 <img
                                     src={profile.avatarUrl}
                                     alt={profile.username}
-                                    className="w-16 h-16 rounded-full border-2 border-light-accent dark:border-dark-matrix"
+                                    className="w-16 h-16 rounded-full border-2 border-light-accent dark:border-dark-success"
                                 />
                             )}
                             <div>
                                 <h1 className="text-3xl font-bold text-light-text dark:text-dark-text flex items-center space-x-2">
-                                    <Activity className="w-8 h-8 text-light-accent dark:text-dark-matrix" />
+                                    <Activity className="w-8 h-8 text-light-accent dark:text-dark-primary" />
                                     <span>{profile.username || 'Your'} GitHub History</span>
                                 </h1>
                                 <p className="text-light-text-secondary dark:text-dark-text-secondary mt-2">
@@ -205,7 +205,7 @@ const History = () => {
                                             return (
                                                 <div
                                                     key={`${weekIndex}-${dayIndex}`}
-                                                    className={`w-3 h-3 rounded-sm ${getColorClass(count)} transition-all hover:ring-2 hover:ring-light-accent dark:hover:ring-dark-matrix cursor-pointer hover:scale-125`}
+                                                    className={`w-3 h-3 rounded-sm ${getColorClass(count)} transition-all hover:ring-2 hover:ring-light-accent dark:hover:ring-dark-primary cursor-pointer hover:scale-125`}
                                                     title={tooltipText}
                                                 />
                                             );
@@ -238,7 +238,7 @@ const History = () => {
                     <div className="space-y-6">
                         {repos?.slice(0, 10).map((repo, index) => (
                             <div key={repo.id} className="flex items-start space-x-4">
-                                <div className="flex-shrink-0 w-2 h-2 mt-2 rounded-full bg-light-accent dark:bg-dark-matrix"></div>
+                                <div className="flex-shrink-0 w-2 h-2 mt-2 rounded-full bg-light-accent dark:bg-dark-success"></div>
                                 <div className="flex-1 pb-6 border-l-2 border-light-border dark:border-dark-border pl-6 -ml-1">
                                     <div className="flex items-start justify-between">
                                         <div>

@@ -8,12 +8,13 @@ import {
     LogOut,
     Activity,
     GitBranch,
-    User
+    User,
+    AlertCircle
 } from 'lucide-react';
 import useAuthStore from '../store/authStore';
 import { useLogout } from '../hooks/useApi';
 import ThemeToggle from './ThemeToggle';
-
+// const isHome = (path) => path === '/';
 const Navbar = () => {
     const { user, isAuthenticated } = useAuthStore();
     const { mutate: logout } = useLogout();
@@ -27,6 +28,7 @@ const Navbar = () => {
     const navLinks = [
         { path: '/dashboard', icon: Home, label: 'Dashboard' },
         { path: '/recommendations', icon: TrendingUp, label: 'Recommended' },
+        { path: '/issues', icon: AlertCircle, label: 'Issues' },
         { path: '/search', icon: Search, label: 'Search' },
         { path: '/saved', icon: Star, label: 'Saved' },
         { path: '/history', icon: Activity, label: 'History' },
@@ -49,9 +51,9 @@ const Navbar = () => {
                 <div className="flex justify-between items-center h-16">
                     {/* Logo */}
                     <Link to="/dashboard" className="flex items-center space-x-2 group">
-                        <GitBranch className="w-8 h-8 text-light-accent dark:text-dark-matrix transition-transform group-hover:rotate-12" />
+                        <GitBranch className="w-8 h-8 text-light-accent dark:text-dark-primary transition-transform group-hover:rotate-12" />
                         <span className="text-xl font-bold text-light-text dark:text-dark-text">
-                            <span className="dark:text-dark-matrix">OS</span> Matchmaker
+                            <span className="dark:text-dark-primary">OS</span> Matchmaker
                         </span>
                     </Link>
 
@@ -62,7 +64,7 @@ const Navbar = () => {
                                 key={link.path}
                                 to={link.path}
                                 className={`flex items-center space-x-2 px-3 py-2 rounded-lg transition-all duration-200 ${isActive(link.path)
-                                    ? 'bg-light-accent text-white dark:bg-dark-bg-tertiary dark:text-dark-matrix'
+                                    ? 'bg-light-accent text-white dark:bg-dark-bg-tertiary dark:text-dark-primary'
                                     : 'text-light-text-secondary dark:text-dark-text-secondary hover:bg-light-bg-secondary dark:hover:bg-dark-bg-secondary'
                                     }`}
                             >
@@ -87,7 +89,7 @@ const Navbar = () => {
                                     <img
                                         src={user.avatar_url}
                                         alt={user.login}
-                                        className="w-8 h-8 rounded-full border-2 border-light-border dark:border-dark-matrix cursor-pointer"
+                                        className="w-8 h-8 rounded-full border-2 border-light-border dark:border-dark-primary cursor-pointer"
                                     />
                                     <span className="hidden sm:block text-sm font-medium text-light-text dark:text-dark-text">
                                         {user?.login}
@@ -113,7 +115,7 @@ const Navbar = () => {
                             key={link.path}
                             to={link.path}
                             className={`flex flex-col items-center space-y-1 px-3 py-2 rounded-lg whitespace-nowrap transition-all duration-200 ${isActive(link.path)
-                                ? 'bg-light-accent text-white dark:bg-dark-bg-tertiary dark:text-dark-matrix'
+                                ? 'bg-light-accent text-white dark:bg-dark-bg-tertiary dark:text-dark-primary'
                                 : 'text-light-text-secondary dark:text-dark-text-secondary'
                                 }`}
                         >

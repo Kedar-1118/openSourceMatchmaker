@@ -29,7 +29,7 @@ const Saved = () => {
                 {/* Header */}
                 <div>
                     <h1 className="text-3xl font-bold text-light-text dark:text-dark-text flex items-center space-x-2">
-                        <Star className="w-8 h-8 text-yellow-500 dark:text-dark-matrix" />
+                        <Star className="w-8 h-8 text-yellow-500 dark:text-dark-primary" />
                         <span>Saved Repositories</span>
                     </h1>
                     <p className="text-light-text-secondary dark:text-dark-text-secondary mt-2">

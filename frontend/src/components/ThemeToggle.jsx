@@ -17,7 +17,7 @@ const ThemeToggle = () => {
     return (
         <button
             onClick={toggleTheme}
-            className="relative w-14 h-7 rounded-full transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 bg-light-border dark:bg-dark-border focus:ring-light-accent dark:focus:ring-dark-matrix"
+            className="relative w-14 h-7 rounded-full transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 bg-light-border dark:bg-dark-border focus:ring-light-accent dark:focus:ring-dark-primary"
             aria-label="Toggle theme"
         >
             <div
@@ -27,7 +27,7 @@ const ThemeToggle = () => {
                 {theme === 'light' ? (
                     <Sun className="w-4 h-4 text-yellow-500" />
                 ) : (
-                    <Moon className="w-4 h-4 text-dark-matrix" />
+                    <Moon className="w-4 h-4 text-dark-primary" />
                 )}
             </div>
         </button>

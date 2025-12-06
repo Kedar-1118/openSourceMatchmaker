@@ -28,25 +28,32 @@
 
 /* Dark mode scrollbar */
 .dark ::-webkit-scrollbar-track {
-  background: #161b22;
+  background: #0a0e27;
 }
 
 .dark ::-webkit-scrollbar-thumb {
-  background: #30363d;
+  background: #2d3250;
 }
 
 .dark ::-webkit-scrollbar-thumb:hover {
-  background: #484f58;
+  background: #4f9eff;
 }
 
-/* Matrix text effect for dark mode */
-@keyframes matrix-flicker {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.8; }
+/* Ocean shimmer effect for dark mode */
+@keyframes ocean-shimmer {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.85;
+  }
 }
 
-.matrix-text {
-  animation: matrix-flicker 2s infinite;
+.ocean-text {
+  animation: ocean-shimmer 3s infinite;
 }
 
 /* Card gradient effects */
@@ -55,17 +62,26 @@
 }
 
 .card-gradient-dark {
-  background: linear-gradient(135deg, #161b22 0%, #1c2128 100%);
+  background: linear-gradient(135deg, #0a0e27 0%, #151932 100%);
 }
 
 /* Glow effect for dark mode */
-.glow-green {
-  box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+.glow-blue {
+  box-shadow: 0 0 12px rgba(79, 158, 255, 0.4);
 }
 
-.glow-blue {
-  box-shadow: 0 0 10px rgba(88, 166, 255, 0.3);
+.glow-cyan {
+  box-shadow: 0 0 15px rgba(0, 212, 255, 0.35);
 }
+
+.glow-orange {
+  box-shadow: 0 0 12px rgba(255, 107, 53, 0.4);
+}
+
+.glow-coral {
+  box-shadow: 0 0 15px rgba(255, 133, 85, 0.35);
+}
+
 
 /* Custom button styles */
 @layer components {
@@ -114,6 +130,11 @@
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }

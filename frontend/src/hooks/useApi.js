@@ -5,6 +5,7 @@ import {
     recommendationService,
     searchService,
     savedService,
+    issueService,
     systemService,
 } from '../services/api';
 import useAuthStore from '../store/authStore';
@@ -96,6 +97,15 @@ export const useSearchRepos = (params = {}) => {
         queryKey: ['search', params],
         queryFn: () => searchService.searchRepos(params),
         enabled: Object.keys(params).length > 0,
+    });
+};
+
+// Issue recommendation hooks
+export const useRecommendedIssues = (params = {}) => {
+    return useQuery({
+        queryKey: ['issues', 'recommendations', params],
+        queryFn: () => issueService.getRecommendations(params),
+        staleTime: 5 * 60 * 1000, // 5 minutes
     });
 };
 

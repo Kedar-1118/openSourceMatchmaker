@@ -77,7 +77,7 @@ const AuthCallback = () => {
                     </>
                 ) : (
                     <>
-                        <Loader2 className="w-12 h-12 animate-spin text-light-accent dark:text-dark-matrix mx-auto" />
+                        <Loader2 className="w-12 h-12 animate-spin text-light-accent dark:text-dark-primary mx-auto" />
                         <p className="text-light-text dark:text-dark-text">
                             Completing authentication...
                         </p>

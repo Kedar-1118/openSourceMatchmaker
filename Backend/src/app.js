@@ -10,6 +10,7 @@ const profileRoutes = require('./routes/profileRoutes');
 const recommendationRoutes = require('./routes/recommendationRoutes');
 const searchRoutes = require('./routes/searchRoutes');
 const savedRoutes = require('./routes/savedRoutes');
+const issueRoutes = require('./routes/issueRoutes');
 
 const app = express();
 
@@ -40,7 +41,8 @@ app.get('/', (req, res) => {
       profile: '/profile',
       recommendations: '/recommend',
       search: '/search',
-      saved: '/saved'
+      saved: '/saved',
+      issues: '/issues'
     }
   });
 });
@@ -50,6 +52,7 @@ app.use('/profile', profileRoutes);
 app.use('/recommend', recommendationRoutes);
 app.use('/search', searchRoutes);
 app.use('/saved', savedRoutes);
+app.use('/issues', issueRoutes);
 
 app.use((err, req, res, next) => {
   logger.error('Unhandled error:', { error: err.message, stack: err.stack });

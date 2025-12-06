@@ -68,7 +68,7 @@ const Recommendations = () => {
                 <div className="flex flex-col md:flex-row md:items-center md:justify-between space-y-4 md:space-y-0">
                     <div>
                         <h1 className="text-3xl font-bold text-light-text dark:text-dark-text flex items-center space-x-2">
-                            <TrendingUp className="w-8 h-8 text-light-accent dark:text-dark-matrix" />
+                            <TrendingUp className="w-8 h-8 text-light-accent dark:text-dark-primary" />
                             <span>Recommended Repositories</span>
                         </h1>
                         <p className="text-light-text-secondary dark:text-dark-text-secondary mt-2">
@@ -185,8 +185,8 @@ const RepoCard = ({ repo, isSaved, onToggleSave }) => {
                     <div className="flex items-start space-x-3 mb-3">
                         {repo.matchScore && (
                             <div className="flex-shrink-0">
-                                <div className="w-16 h-16 rounded-full border-4 border-light-accent dark:border-dark-matrix flex items-center justify-center">
-                                    <span className="text-lg font-bold text-light-accent dark:text-dark-matrix">
+                                <div className="w-16 h-16 rounded-full border-4 border-light-accent dark:border-dark-primary flex items-center justify-center">
+                                    <span className="text-lg font-bold text-light-accent dark:text-dark-primary">
                                         {repo.matchScore}%
                                     </span>
                                 </div>
@@ -199,7 +199,7 @@ const RepoCard = ({ repo, isSaved, onToggleSave }) => {
                                     href={repo.html_url}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="text-light-accent dark:text-dark-matrix hover:opacity-80"
+                                    className="text-light-accent dark:text-dark-primary hover:opacity-80"
                                 >
                                     <ExternalLink className="w-5 h-5" />
                                 </a>
@@ -232,7 +232,7 @@ const RepoCard = ({ repo, isSaved, onToggleSave }) => {
                             </span>
                         )}
                         {repo.open_issues_count > 0 && (
-                            <span className="flex items-center space-x-1 text-light-accent dark:text-dark-matrix">
+                            <span className="flex items-center space-x-1 text-light-accent dark:text-dark-primary">
                                 <Users className="w-4 h-4" />
                                 <span>{repo.open_issues_count} open issues</span>
                             </span>
@@ -245,7 +245,7 @@ const RepoCard = ({ repo, isSaved, onToggleSave }) => {
                             {repo.topics.slice(0, 5).map((topic, index) => (
                                 <span
                                     key={index}
-                                    className="px-3 py-1 text-xs font-medium rounded-full bg-light-accent/10 text-light-accent dark:bg-dark-matrix/10 dark:text-dark-matrix"
+                                    className="px-3 py-1 text-xs font-medium rounded-full bg-light-accent/10 text-light-accent dark:bg-dark-primary/10 dark:text-dark-primary"
                                 >
                                     {topic}
                                 </span>
@@ -255,7 +255,7 @@ const RepoCard = ({ repo, isSaved, onToggleSave }) => {
 
                     {/* Reason for recommendation */}
                     {repo.matchReason && (
-                        <div className="bg-light-bg-secondary dark:bg-dark-bg-tertiary rounded-lg p-3 border-l-4 border-light-accent dark:border-dark-matrix">
+                        <div className="bg-light-bg-secondary dark:bg-dark-bg-tertiary rounded-lg p-3 border-l-4 border-light-accent dark:border-dark-primary">
                             <p className="text-sm text-light-text dark:text-dark-text">
                                 <span className="font-semibold">Why this matches:</span> {repo.matchReason}
                             </p>
@@ -270,7 +270,7 @@ const RepoCard = ({ repo, isSaved, onToggleSave }) => {
                     title={isSaved ? 'Remove from saved' : 'Save repository'}
                 >
                     {isSaved ? (
-                        <BookmarkCheck className="w-6 h-6 text-light-accent dark:text-dark-matrix" />
+                        <BookmarkCheck className="w-6 h-6 text-light-accent dark:text-dark-primary" />
                     ) : (
                         <Bookmark className="w-6 h-6 text-light-text-secondary dark:text-dark-text-secondary" />
                     )}

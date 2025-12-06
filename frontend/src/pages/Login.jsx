@@ -38,7 +38,7 @@ const Login = () => {
         <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-light-bg to-light-bg-secondary dark:from-dark-bg dark:to-dark-bg-secondary">
             {/* Background Pattern */}
             <div className="absolute inset-0 overflow-hidden opacity-5 dark:opacity-10">
-                <div className="absolute -top-1/2 -left-1/2 w-full h-full bg-gradient-to-br from-light-accent to-transparent dark:from-dark-matrix dark:to-transparent rounded-full blur-3xl"></div>
+                <div className="absolute -top-1/2 -left-1/2 w-full h-full bg-gradient-to-br from-light-accent to-transparent dark:from-dark-primary dark:to-transparent rounded-full blur-3xl"></div>
                 <div className="absolute -bottom-1/2 -right-1/2 w-full h-full bg-gradient-to-tl from-light-accent to-transparent dark:from-dark-accent dark:to-transparent rounded-full blur-3xl"></div>
             </div>
 
@@ -46,7 +46,7 @@ const Login = () => {
                 {/* Back Button */}
                 <button
                     onClick={() => navigate('/')}
-                    className="mb-4 flex items-center space-x-2 text-light-accent dark:text-dark-matrix hover:opacity-80 transition-opacity font-medium"
+                    className="mb-4 flex items-center space-x-2 text-light-accent dark:text-dark-primary hover:opacity-80 transition-opacity font-medium"
                 >
                     <ArrowLeft className="w-5 h-5" />
                     <span>Back to Home</span>
@@ -56,9 +56,9 @@ const Login = () => {
                     {/* Left Side - Branding */}
                     <div className="text-center md:text-left space-y-6 animate-fade-in">
                         <div className="flex items-center justify-center md:justify-start space-x-3">
-                            <GitBranch className="w-12 h-12 text-light-accent dark:text-dark-matrix animate-pulse-slow" />
+                            <GitBranch className="w-12 h-12 text-light-accent dark:text-dark-primary animate-pulse-slow" />
                             <h1 className="text-4xl md:text-5xl font-bold text-light-text dark:text-dark-text">
-                                <span className="dark:text-dark-matrix">Open Source</span>
+                                <span className="dark:text-dark-primary">Open Source</span>
                                 <br />
                                 Matchmaker
                             </h1>
@@ -72,15 +72,15 @@ const Login = () => {
                         {/* Features */}
                         <div className="space-y-4 pt-4">
                             <div className="flex items-center space-x-3 text-light-text dark:text-dark-text">
-                                <Code2 className="w-6 h-6 text-light-accent dark:text-dark-matrix" />
+                                <Code2 className="w-6 h-6 text-light-accent dark:text-dark-primary" />
                                 <span>AI-powered repository recommendations</span>
                             </div>
                             <div className="flex items-center space-x-3 text-light-text dark:text-dark-text">
-                                <Users className="w-6 h-6 text-light-accent dark:text-dark-matrix" />
+                                <Users className="w-6 h-6 text-light-accent dark:text-dark-primary" />
                                 <span>Match with projects based on your GitHub profile</span>
                             </div>
                             <div className="flex items-center space-x-3 text-light-text dark:text-dark-text">
-                                <Star className="w-6 h-6 text-light-accent dark:text-dark-matrix" />
+                                <Star className="w-6 h-6 text-light-accent dark:text-dark-primary" />
                                 <span>Track and bookmark your favorite repositories</span>
                             </div>
                         </div>
@@ -101,7 +101,7 @@ const Login = () => {
                             {/* GitHub Login Button */}
                             <button
                                 onClick={handleGitHubLogin}
-                                className="w-full bg-gray-800 hover:bg-gray-900 dark:bg-dark-matrix-dim dark:hover:bg-dark-matrix text-white font-semibold py-4 px-6 rounded-lg shadow-lg transition-all duration-200 transform hover:scale-105 flex items-center justify-center space-x-3 group"
+                                className="w-full bg-gray-800 hover:bg-gray-900 dark:bg-dark-primary-dim dark:hover:bg-dark-primary text-white font-semibold py-4 px-6 rounded-lg shadow-lg transition-all duration-200 transform hover:scale-105 flex items-center justify-center space-x-3 group"
                             >
                                 <Github className="w-6 h-6 group-hover:rotate-12 transition-transform" />
                                 <span>Continue with GitHub</span>
@@ -124,7 +124,7 @@ const Login = () => {
                                 <p>
                                     By signing in, you agree to our Terms of Service and Privacy Policy.
                                 </p>
-                                <p className="dark:text-dark-matrix">
+                                <p className="dark:text-dark-primary">
                                     🔒 We only access your public GitHub profile and repositories
                                 </p>
                             </div>

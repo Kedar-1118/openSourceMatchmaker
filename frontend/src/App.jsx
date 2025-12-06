@@ -13,6 +13,7 @@ import Recommendations from './pages/Recommendations';
 import Search from './pages/Search';
 import Saved from './pages/Saved';
 import History from './pages/History';
+import Issues from './pages/Issues';
 
 // Components
 import Navbar from './components/Navbar';
@@ -97,6 +98,14 @@ function App() {
               element={
                 <ProtectedRoute>
                   <History />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/issues"
+              element={
+                <ProtectedRoute>
+                  <Issues />
                 </ProtectedRoute>
               }
             />

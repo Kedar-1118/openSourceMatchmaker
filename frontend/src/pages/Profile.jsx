@@ -115,7 +115,7 @@ const Profile = () => {
                         <img
                             src={summary?.avatarUrl || 'https://github.com/ghost.png'}
                             alt="Profile"
-                            className="w-32 h-32 rounded-full border-4 border-light-accent dark:border-dark-matrix"
+                            className="w-32 h-32 rounded-full border-4 border-light-accent dark:border-dark-primary"
                         />
                         <div className="flex-1 text-center md:text-left">
                             <h1 className="text-3xl font-bold text-light-text dark:text-dark-text mb-2">
@@ -147,7 +147,7 @@ const Profile = () => {
                         icon={GitBranch}
                         label="Repositories"
                         value={summary?.totalRepos || 0}
-                        color="text-light-accent dark:text-dark-matrix"
+                        color="text-light-accent dark:text-dark-primary"
                     />
                     <StatCard
                         icon={Star}
@@ -269,7 +269,7 @@ const Profile = () => {
                             {customTechnologies.map((tech, index) => (
                                 <div
                                     key={index}
-                                    className="px-4 py-2 rounded-lg bg-gradient-to-r from-light-accent/10 to-light-accent/5 dark:from-dark-matrix/20 dark:to-dark-matrix/10 border border-light-accent/50 dark:border-dark-matrix/50 flex items-center gap-2"
+                                    className="px-4 py-2 rounded-lg bg-gradient-to-r from-light-accent/10 to-light-accent/5 dark:from-dark-primary/20 dark:to-dark-primary/10 border border-light-accent/50 dark:border-dark-primary/50 flex items-center gap-2"
                                 >
                                     <div>
                                         <span className="text-light-text dark:text-dark-text font-medium">
@@ -343,7 +343,7 @@ const Profile = () => {
                         {filteredRepos.map((repo, index) => (
                             <div
                                 key={index}
-                                className="p-4 rounded-lg bg-light-bg-secondary dark:bg-dark-bg-tertiary border border-light-border dark:border-dark-border hover:border-light-accent dark:hover:border-dark-matrix transition-all"
+                                className="p-4 rounded-lg bg-light-bg-secondary dark:bg-dark-bg-tertiary border border-light-border dark:border-dark-border hover:border-light-accent dark:hover:border-dark-primary transition-all"
                             >
                                 <div className="flex items-start justify-between">
                                     <div className="flex-1">
@@ -352,7 +352,7 @@ const Profile = () => {
                                                 href={repo.html_url}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="text-lg font-semibold text-light-accent dark:text-dark-matrix hover:underline flex items-center gap-1"
+                                                className="text-lg font-semibold text-light-accent dark:text-dark-primary hover:underline flex items-center gap-1"
                                             >
                                                 {repo.name}
                                                 <ExternalLink className="w-4 h-4" />
@@ -369,7 +369,7 @@ const Profile = () => {
                                         <div className="flex items-center gap-4 text-sm text-light-text-secondary dark:text-dark-text-secondary">
                                             {repo.language && (
                                                 <span className="flex items-center gap-1">
-                                                    <div className="w-3 h-3 rounded-full bg-light-accent dark:bg-dark-matrix"></div>
+                                                    <div className="w-3 h-3 rounded-full bg-light-accent dark:bg-dark-primary"></div>
                                                     {repo.language}
                                                 </span>
                                             )}
