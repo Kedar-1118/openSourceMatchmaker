@@ -42,10 +42,11 @@ const Navbar = () => {
     const isActive = (path) => location.pathname === path;
 
     // Don't show navbar on landing or login pages
-    if (!isAuthenticated && (location.pathname === '/' || location.pathname === '/login')) {
+    if (location.pathname === '/' || location.pathname === '/login') {
         return null;
     }
 
+    // Don't show navbar if not authenticated
     if (!isAuthenticated) {
         return null;
     }
@@ -73,8 +74,8 @@ const Navbar = () => {
                                 key={link.path}
                                 to={link.path}
                                 className={`flex items-center space-x-2 px-3 py-2 rounded-lg transition-all duration-200 ${isActive(link.path)
-                                        ? 'bg-light-accent text-white dark:bg-dark-bg-tertiary dark:text-dark-primary'
-                                        : 'text-light-text-secondary dark:text-dark-text-secondary hover:bg-light-bg-secondary dark:hover:bg-dark-bg-secondary'
+                                    ? 'bg-light-accent text-white dark:bg-dark-bg-tertiary dark:text-dark-primary'
+                                    : 'text-light-text-secondary dark:text-dark-text-secondary hover:bg-light-bg-secondary dark:hover:bg-dark-bg-secondary'
                                     }`}
                             >
                                 <link.icon className="w-4 h-4" />
@@ -164,8 +165,8 @@ const Navbar = () => {
                                     to={link.path}
                                     onClick={handleNavLinkClick}
                                     className={`flex items-center space-x-3 px-4 py-3 transition-colors ${isActive(link.path)
-                                            ? 'bg-light-accent text-white dark:bg-dark-bg-tertiary dark:text-dark-primary'
-                                            : 'text-light-text dark:text-dark-text hover:bg-light-bg-secondary dark:hover:bg-dark-bg-secondary'
+                                        ? 'bg-light-accent text-white dark:bg-dark-bg-tertiary dark:text-dark-primary'
+                                        : 'text-light-text dark:text-dark-text hover:bg-light-bg-secondary dark:hover:bg-dark-bg-secondary'
                                         }`}
                                 >
                                     <link.icon className="w-5 h-5" />
