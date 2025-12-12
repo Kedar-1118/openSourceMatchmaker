@@ -91,10 +91,12 @@ const LanguagePieChart = ({ data = [], height = 300, outerRadius = 80 }) => {
                         <Tooltip
                             formatter={(value, name) => [`${value}%`, name]}
                             contentStyle={{
-                                backgroundColor: theme === 'dark' ? '#161b22' : '#ffffff',
-                                border: `1px solid ${theme === 'dark' ? '#30363d' : '#d0d7de'}`,
+                                backgroundColor: '#1ac9e0ff',
+                                // theme === 'dark' ? '#c8d2e0ff' : '#4e4646ff',
+                                border: `2px solid #1ac9e0ff`,
+                                // ${theme === 'dark' ? '#30363d' : '#d0d7de
                                 borderRadius: '8px',
-                                color: theme === 'dark' ? '#c9d1d9' : '#24292f'
+                                color: '#c9d6e6ff'
                             }}
                         />
                         <Legend
