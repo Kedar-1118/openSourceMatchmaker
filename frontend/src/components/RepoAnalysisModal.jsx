@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
 import { X, Star, GitFork, AlertCircle, Code, TrendingUp, ExternalLink, Lightbulb, CheckCircle } from 'lucide-react';
-import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
+import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
 import { SyncLoader } from 'react-spinners';
 import useThemeStore from '../store/themeStore';
 import apiClient from '../services/apiClient';
+import LanguagePieChart from './LanguagePieChart';
 
 const RepoAnalysisModal = ({ repo, onClose }) => {
     const { theme } = useThemeStore();
@@ -174,32 +175,7 @@ const RepoAnalysisModal = ({ repo, onClose }) => {
                                         <Code className="w-5 h-5" />
                                         Language Distribution
                                     </h3>
-                                    <ResponsiveContainer width="100%" height={300}>
-                                        <PieChart>
-                                            <Pie
-                                                data={analysisData.languages}
-                                                cx="50%"
-                                                cy="50%"
-                                                labelLine={false}
-                                                label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
-                                                outerRadius={100}
-                                                fill="#8884d8"
-                                                dataKey="value"
-                                            >
-                                                {analysisData.languages.map((entry, index) => (
-                                                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                                                ))}
-                                            </Pie>
-                                            <Tooltip
-                                                contentStyle={{
-                                                    backgroundColor: theme === 'dark' ? '#161b22' : '#ffffff',
-                                                    border: `1px solid ${theme === 'dark' ? '#30363d' : '#d0d7de'}`,
-                                                    borderRadius: '8px',
-                                                    color: theme === 'dark' ? '#c9d1d9' : '#24292f'
-                                                }}
-                                            />
-                                        </PieChart>
-                                    </ResponsiveContainer>
+                                    <LanguagePieChart data={analysisData.languages} height={300} outerRadius={100} />
                                 </div>
                             )}
 
